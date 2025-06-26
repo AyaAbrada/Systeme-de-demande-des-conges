@@ -24,4 +24,10 @@ public class DemandeCongeService {
     public Optional<DemandeConge> getById(Long id){
         return demandeCongeRepositorie.findById(id);
     }
+    public DemandeConge updatedemande(DemandeConge demande) {
+        return demandeCongeRepositorie.save(demande);
+    }
+    public void delete(Long id){
+        demandeCongeRepositorie.deleteById(id);
+    }
 }

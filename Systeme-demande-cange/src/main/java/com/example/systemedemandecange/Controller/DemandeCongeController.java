@@ -29,4 +29,14 @@ public class DemandeCongeController {
         return demandeCongeService.getById(id).orElse(null);
     }
 
+    @PutMapping
+    public DemandeConge updateDemande(DemandeConge demande) {
+        return demandeCongeService.updatedemande(demande);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        demandeCongeService.delete(id);
+    }
+
 }

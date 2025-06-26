@@ -1,4 +1,4 @@
 package com.example.systemedemandecange.Service;
 
-public class SoldeCongeServIce {
+public class SoldeCongeService {
 }
