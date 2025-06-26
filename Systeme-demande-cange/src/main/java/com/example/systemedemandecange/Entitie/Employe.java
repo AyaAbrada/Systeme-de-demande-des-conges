@@ -1,31 +1,33 @@
 package com.example.systemedemandecange.Entitie;
+import com.example.systemedemandecange.Entitie.DemandeConge;
+import com.example.systemedemandecange.Entitie.SoldeConge;
+import com.example.systemedemandecange.Entitie.User;
+import jakarta.persistence.*;
+import com.example.systemedemandecange.Entitie.Role;
 import java.util.List;
 
+@Entity
 public class Employe extends User {
 
+    @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    private List<DemandeConge> demandes;
 
-    private List<String> etapes;
-    private List<String> demandes;
+    @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    private List<SoldeConge> soldes;
 
-    public List<String> getEtapes() {
-        return etapes;
-    }
+    public Employe() {}
 
-    public void setEtapes(List<String> etapes) {
-        this.etapes = etapes;
-    }
-
-    public List<String> getDemandes() {
-        return demandes;
-    }
-
-    public void setDemandes(List<String> demandes) {
+    public Employe(String name, String prenom, String email, String password, Role role,
+                   List<DemandeConge> demandes, List<SoldeConge> soldes) {
+        super(name, prenom, email, password, role);
         this.demandes = demandes;
+        this.soldes = soldes;
     }
 
-    public Employe(int id, String name, String prenom, String email, String password, Role role, List<String> etapes, List<String> demandes) {
-        super(id, name, prenom, email, password, role);
-        this.etapes = etapes;
-        this.demandes = demandes;
-    }
+    // Getters & Setters
+    public List<DemandeConge> getDemandes() { return demandes; }
+    public void setDemandes(List<DemandeConge> demandes) { this.demandes = demandes; }
+
+    public List<SoldeConge> getSoldes() { return soldes; }
+    public void setSoldes(List<SoldeConge> soldes) { this.soldes = soldes; }
 }

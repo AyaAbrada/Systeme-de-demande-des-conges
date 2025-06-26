@@ -1,41 +1,39 @@
 package com.example.systemedemandecange.Entitie;
+import jakarta.persistence.*;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
+@Entity
 public class DemandeConge {
-    public Long id ;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
-    public Employe employe ;
 
-    public DemandeConge(Long id, TypeConge typeConge, Employe employe) {
-        this.id = id;
+    @ManyToOne
+    @JoinColumn(name = "employe_id")
+    private Employe employe;
+
+    public DemandeConge() {}
+
+    public DemandeConge(TypeConge typeConge, Employe employe) {
         this.typeConge = typeConge;
         this.employe = employe;
     }
 
     public Long getId() {
-        return id;
-    }
-
+        return id; }
     public void setId(Long id) {
-        this.id = id;
-    }
+        this.id = id; }
 
     public TypeConge getTypeConge() {
-        return typeConge;
-    }
-
+        return typeConge; }
     public void setTypeConge(TypeConge typeConge) {
-        this.typeConge = typeConge;
-    }
+        this.typeConge = typeConge; }
 
     public Employe getEmploye() {
-        return employe;
-    }
-
+        return employe; }
     public void setEmploye(Employe employe) {
-        this.employe = employe;
-    }
+        this.employe = employe; }
 }

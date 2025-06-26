@@ -1,20 +1,24 @@
 package com.example.systemedemandecange.Entitie;
+import jakarta.persistence.*;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+@MappedSuperclass
+public abstract class User {
 
-public class User {
-        public int id;
-        public String name;
-        public String prenom;
-        public String email;
-        public String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String prenom;
+    private String email;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User(int id, String name, String prenom, String email, String password, Role role) {
-        this.id = id;
+    public User() {}
+
+    public User(String name, String prenom, String email, String password, Role role) {
         this.name = name;
         this.prenom = prenom;
         this.email = email;
@@ -22,51 +26,23 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
-    }
+    // Getters & Setters
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getPrenom() { return prenom; }
+    public void setPrenom(String prenom) { this.prenom = prenom; }
 
-    public String getPrenom() {
-        return prenom;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 }

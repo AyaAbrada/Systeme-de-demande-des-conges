@@ -1,24 +1,37 @@
 package com.example.systemedemandecange.Entitie;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.example.systemedemandecange.Entitie.Employe;
+import com.example.systemedemandecange.Entitie.TypeConge;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class SoldeConge {
-    public Long id ;
-    public Employe employe;
-    public LocalDate dateDebut;
-    public LocalDate dateFin;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "employe_id")
+    private Employe employe;
+
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
+
     @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
 
     @Enumerated(EnumType.STRING)
     private Statut statu;
+
     private String motifRecu;
     private LocalDate dateSoumission;
     private LocalDate dateTraitement;
 
-    public SoldeConge(Long id, Employe employe, LocalDate dateDebut, LocalDate dateFin, TypeConge typeConge, Statut statu, String motifRecu, LocalDate dateSoumission, LocalDate dateTraitement) {
-        this.id = id;
+    public SoldeConge() {}
+
+    public SoldeConge(Employe employe, LocalDate dateDebut, LocalDate dateFin, TypeConge typeConge, Statut statu,
+                      String motifRecu, LocalDate dateSoumission, LocalDate dateTraitement) {
         this.employe = employe;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -26,22 +39,6 @@ public class SoldeConge {
         this.statu = statu;
         this.motifRecu = motifRecu;
         this.dateSoumission = dateSoumission;
-        this.dateTraitement = dateTraitement;
-    }
-
-    public LocalDate getDateSoumission() {
-        return dateSoumission;
-    }
-
-    public void setDateSoumission(LocalDate dateSoumission) {
-        this.dateSoumission = dateSoumission;
-    }
-
-    public LocalDate getDateTraitement() {
-        return dateTraitement;
-    }
-
-    public void setDateTraitement(LocalDate dateTraitement) {
         this.dateTraitement = dateTraitement;
     }
 
@@ -99,5 +96,21 @@ public class SoldeConge {
 
     public void setMotifRecu(String motifRecu) {
         this.motifRecu = motifRecu;
+    }
+
+    public LocalDate getDateSoumission() {
+        return dateSoumission;
+    }
+
+    public void setDateSoumission(LocalDate dateSoumission) {
+        this.dateSoumission = dateSoumission;
+    }
+
+    public LocalDate getDateTraitement() {
+        return dateTraitement;
+    }
+
+    public void setDateTraitement(LocalDate dateTraitement) {
+        this.dateTraitement = dateTraitement;
     }
 }

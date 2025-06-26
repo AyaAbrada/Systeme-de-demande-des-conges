@@ -1,5 +1,5 @@
 package com.example.systemedemandecange.Entitie;
 
 public enum Statut {
-    En_Attante ,
+    En_Attante , REFUSER , ACCEPTER
 }
