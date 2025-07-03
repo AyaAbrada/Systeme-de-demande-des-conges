@@ -1,1 +1,55 @@
-<p>register works!</p>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://cactusgivre.com/wp-content/uploads/2021/08/8347-1024x594.jpg"
+             class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Créer un compte</p>
+          </div>
+
+          <!-- Nom -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="nom" class="form-control form-control-lg" placeholder="Entrez votre nom" />
+          </div>
+
+          <!-- Prénom -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="prenom" class="form-control form-control-lg" placeholder="Entrez votre prénom" />
+          </div>
+
+          <!-- Email -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input type="email" id="email" class="form-control form-control-lg" placeholder="Entrez une adresse email valide" />
+          </div>
+
+          <!-- Mot de passe -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input type="password" id="password" class="form-control form-control-lg" placeholder="Entrez un mot de passe" />
+          </div>
+
+          <!-- Rôle -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <select id="role" class="form-select form-control-lg">
+              <option selected disabled>Choisissez un rôle</option>
+              <option value="EMPLOYER">Employer</option>
+              <option value="MANAGER">Manager</option>
+            </select>
+          </div>
+
+          <!-- Bouton -->
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button id="btn" type="button" class="btn btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Créer
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

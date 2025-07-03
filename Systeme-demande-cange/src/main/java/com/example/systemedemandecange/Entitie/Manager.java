@@ -1,4 +1,4 @@
 package com.example.systemedemandecange.Entitie;
 
-public class Manager {
+public class Manager extends User{
 }
