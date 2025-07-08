@@ -1,6 +1,9 @@
 package com.example.systemedemandecange.Controller;
 import com.example.systemedemandecange.Entitie.DemandeConge;
+import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Service.DemandeCongeService;
+import com.example.systemedemandecange.Service.ManagerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -9,9 +12,11 @@ import java.util.List;
 public class DemandeCongeController {
 
     private final DemandeCongeService demandeCongeService;
+    private final ManagerService managerService;
 
-    public DemandeCongeController(DemandeCongeService demandeCongeService){
+    public DemandeCongeController(DemandeCongeService demandeCongeService, ManagerService managerService){
         this.demandeCongeService = demandeCongeService;
+        this.managerService = managerService;
     }
 
     @PostMapping
@@ -38,5 +43,14 @@ public class DemandeCongeController {
     public void delete(@PathVariable Long id){
         demandeCongeService.delete(id);
     }
+
+    @PutMapping("/{id}/valider")
+    public ResponseEntity<?> validerDemande(@PathVariable Long id, @RequestParam Long managerId) {
+        Manager manager = managerService.findById(managerId);
+        DemandeConge result = demandeCongeService.validerDemande(id, manager);
+        return ResponseEntity.ok(result);
+    }
+
+
 
 }

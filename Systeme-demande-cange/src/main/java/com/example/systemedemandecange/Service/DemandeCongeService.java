@@ -1,5 +1,7 @@
 package com.example.systemedemandecange.Service;
 import com.example.systemedemandecange.Entitie.DemandeConge;
+import com.example.systemedemandecange.Entitie.Manager;
+import com.example.systemedemandecange.Entitie.Statut;
 import com.example.systemedemandecange.Repositorie.DemandeCongeRepositorie;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,15 @@ public class DemandeCongeService {
     }
     public void delete(Long id){
         demandeCongeRepositorie.deleteById(id);
+    }
+
+    public DemandeConge validerDemande(Long id, Manager manager){
+        DemandeConge demande = demandeCongeRepositorie.findById(id)
+                .orElseThrow(()-> new RuntimeException("Demande introuvable"));
+
+        demande.setStatut(Statut.ACCEPTER); 
+        demande.setManager(manager);
+        return demandeCongeRepositorie.save(demande);
+
     }
 }

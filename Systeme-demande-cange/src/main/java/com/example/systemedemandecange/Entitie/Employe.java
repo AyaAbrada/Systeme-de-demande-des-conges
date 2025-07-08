@@ -1,12 +1,10 @@
 package com.example.systemedemandecange.Entitie;
-import com.example.systemedemandecange.Entitie.DemandeConge;
-import com.example.systemedemandecange.Entitie.SoldeConge;
-import com.example.systemedemandecange.Entitie.User;
 import jakarta.persistence.*;
-import com.example.systemedemandecange.Entitie.Role;
+
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("EMPLOYE")
 public class Employe extends User {
 
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
@@ -17,9 +15,9 @@ public class Employe extends User {
 
     public Employe() {}
 
-    public Employe(String name, String prenom, String email, String password, Role role,
+    public Employe(String name, String prenom, String email, String password,
                    List<DemandeConge> demandes, List<SoldeConge> soldes) {
-        super(name, prenom, email, password, role);
+        super(name, prenom, email, password);
         this.demandes = demandes;
         this.soldes = soldes;
     }

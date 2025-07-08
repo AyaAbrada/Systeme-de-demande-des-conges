@@ -15,11 +15,28 @@ public class DemandeConge {
     @JoinColumn(name = "employe_id")
     private Employe employe;
 
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Manager manager;
+
+    @Enumerated(EnumType.STRING)
+    private Statut statut = Statut.En_Attante;
+
+
     public DemandeConge() {}
 
-    public DemandeConge(TypeConge typeConge, Employe employe) {
+    public DemandeConge(TypeConge typeConge, Employe employe , Manager manager) {
         this.typeConge = typeConge;
         this.employe = employe;
+        this.manager = manager;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     public Long getId() {
@@ -36,4 +53,12 @@ public class DemandeConge {
         return employe; }
     public void setEmploye(Employe employe) {
         this.employe = employe; }
+
+    public Statut getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Statut statut) {
+        this.statut = statut;
+    }
 }
