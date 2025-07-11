@@ -42,4 +42,14 @@ public class DemandeCongeService {
         return demandeCongeRepositorie.save(demande);
 
     }
+
+    public DemandeConge refuseDemande(Long id, Manager manager){
+        DemandeConge demande = demandeCongeRepositorie.findById(id)
+                .orElseThrow(()-> new RuntimeException("Demande introuvable"));
+
+        demande.setStatut(Statut.REFUSER);
+        demande.setManager(manager);
+        return demandeCongeRepositorie.save(demande);
+
+    }
 }

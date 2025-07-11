@@ -15,9 +15,9 @@ public class Employe extends User {
 
     public Employe() {}
 
-    public Employe(String name, String prenom, String email, String password,
+    public Employe(String name, String prenom, String username, String password,
                    List<DemandeConge> demandes, List<SoldeConge> soldes) {
-        super(name, prenom, email, password);
+        super(name, prenom, username, password);
         this.demandes = demandes;
         this.soldes = soldes;
     }

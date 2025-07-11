@@ -1,41 +1,13 @@
-package com.example.systemedemandecange.Entitie;
-import jakarta.persistence.*;
+package com.example.systemedemandecange.Controller;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "role")
-
-public abstract class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class RegisterRequest {
     private String name;
     private String prenom;
     private String username;
     private String password;
+    private String role;
 
-
-    public User() {
-    }
-
-    public User(String name, String prenom, String username, String password) {
-        this.name = name;
-        this.prenom = prenom;
-        this.username = username;
-        this.password = password;
-    }
-
-    // Getters & Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Getters & setters
 
     public String getName() {
         return name;
@@ -69,4 +41,12 @@ public abstract class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
+

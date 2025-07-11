@@ -51,6 +51,13 @@ public class DemandeCongeController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("/{id}/refuser")
+    public ResponseEntity<?> refuseDemande(@PathVariable Long id, @RequestParam Long managerId) {
+        Manager manager = managerService.findById(managerId);
+        DemandeConge result = demandeCongeService.refuseDemande(id, manager);
+        return ResponseEntity.ok(result);
+    }
+
 
 
 }
