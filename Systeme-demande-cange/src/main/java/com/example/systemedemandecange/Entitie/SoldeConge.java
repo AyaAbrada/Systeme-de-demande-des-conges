@@ -1,8 +1,5 @@
 package com.example.systemedemandecange.Entitie;
-import com.example.systemedemandecange.Entitie.Employe;
-import com.example.systemedemandecange.Entitie.TypeConge;
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class SoldeConge {
@@ -12,42 +9,23 @@ public class SoldeConge {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "employe_id")
     private Employe employe;
-
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
 
     @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
 
-    @Enumerated(EnumType.STRING)
-    private Statut statu;
-
-    private String motifRecu;
-    private LocalDate dateSoumission;
-    private LocalDate dateTraitement;
+    private int joursRestants;
 
     public SoldeConge() {}
 
-    public SoldeConge(Employe employe, LocalDate dateDebut, LocalDate dateFin, TypeConge typeConge, Statut statu,
-                      String motifRecu, LocalDate dateSoumission, LocalDate dateTraitement) {
+    public SoldeConge(Employe employe, TypeConge typeConge, int joursRestants) {
         this.employe = employe;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
         this.typeConge = typeConge;
-        this.statu = statu;
-        this.motifRecu = motifRecu;
-        this.dateSoumission = dateSoumission;
-        this.dateTraitement = dateTraitement;
+        this.joursRestants = joursRestants;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Employe getEmploye() {
@@ -58,22 +36,6 @@ public class SoldeConge {
         this.employe = employe;
     }
 
-    public LocalDate getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(LocalDate dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public LocalDate getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(LocalDate dateFin) {
-        this.dateFin = dateFin;
-    }
-
     public TypeConge getTypeConge() {
         return typeConge;
     }
@@ -82,35 +44,11 @@ public class SoldeConge {
         this.typeConge = typeConge;
     }
 
-    public Statut getStatu() {
-        return statu;
+    public int getJoursRestants() {
+        return joursRestants;
     }
 
-    public void setStatu(Statut statu) {
-        this.statu = statu;
-    }
-
-    public String getMotifRecu() {
-        return motifRecu;
-    }
-
-    public void setMotifRecu(String motifRecu) {
-        this.motifRecu = motifRecu;
-    }
-
-    public LocalDate getDateSoumission() {
-        return dateSoumission;
-    }
-
-    public void setDateSoumission(LocalDate dateSoumission) {
-        this.dateSoumission = dateSoumission;
-    }
-
-    public LocalDate getDateTraitement() {
-        return dateTraitement;
-    }
-
-    public void setDateTraitement(LocalDate dateTraitement) {
-        this.dateTraitement = dateTraitement;
+    public void setJoursRestants(int joursRestants) {
+        this.joursRestants = joursRestants;
     }
 }
