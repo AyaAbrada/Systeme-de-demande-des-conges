@@ -54,18 +54,24 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
 
-            String token = jwtUtils.generateJwtToken(user.getUsername());
+            String token = jwtUtils.generateJwtToken(loginRequest.getUsername());
 
-            return ResponseEntity.ok(new LoginResponse(token));
+            User user = userRepositorie.findByUsername(loginRequest.getUsername());
+            String role = "";
+            if (user instanceof Manager) role = "MANAGER";
+            else if (user instanceof Employe) role = "EMPLOYE";
+
+            return ResponseEntity.ok(new LoginResponse(token, role));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+
 
 }
