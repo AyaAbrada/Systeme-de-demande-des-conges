@@ -11,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/solde")
 public class SoldeCongeController {
 
-    @Autowired
-    private SoldeCongeService soldeCongeService;
+    private final SoldeCongeService soldeCongeService;
+
+    public SoldeCongeController(SoldeCongeService soldeCongeService) {
+        this.soldeCongeService = soldeCongeService;
+    }
 
     @PostMapping("/init")
     public String initialiserPourTous() {
