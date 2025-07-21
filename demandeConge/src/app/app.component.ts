@@ -5,7 +5,7 @@ import {FoterComponent} from './foter/foter.component';
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, RouterOutlet, FoterComponent],
+  imports: [NavbarComponent, RouterOutlet, FoterComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
