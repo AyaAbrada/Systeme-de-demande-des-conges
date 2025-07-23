@@ -18,8 +18,9 @@ export class LoginComponent {
   user = {
     username : '',
     password : '',
-    role : 'MANAGER | EMPLOYE'
+    role : ''
   };
+
 
   message : string = "";
 
@@ -28,19 +29,21 @@ export class LoginComponent {
   }
 
   login(){
+
+    alert(this.user.role);
     this.authService.login(this.user).subscribe({
       next: (res : any )=>{
         console.log('Réponse de login:' , res);
 
         this.authService.saveToken(res.token);
 
-        const role = (res.role || '').toUpperCase().trim();
-
+        const role = this.user.role;
+        console.log(role)
         switch (role){
           case 'MANAGER':
             this.router.navigate(['/dashboard-manager']);
             break;
-          case 'EMPLOYE':
+          case 'EMPLOYER':
             this.router.navigate(['/employe-manager']);
             break;
           default:

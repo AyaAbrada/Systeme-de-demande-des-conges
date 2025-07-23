@@ -14,7 +14,7 @@ export const routes: Routes = [
   {path: "demandes",component: DemandesComponent},
   {path: "hisrorique", component: HistoriqueComponent},
   {path: "dashboard", component: DashboardComponent},
-  {path: "dashboard-employe", component: DashboardEmployeComponent},
+  {path: "employe-manager", component: DashboardEmployeComponent},
   {path: "dashboard-manager", component: DashboardManagerComponent},
 
 ];
