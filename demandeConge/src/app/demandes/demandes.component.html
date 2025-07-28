@@ -1,118 +1,39 @@
-<body>
-<div class="container">
-  <div class="title">
-    <h3>Liste des demandes</h3>
-  </div>
-  <div class="row">
-    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-          <tr>
-            <th class="text-center">#</th>
-            <th>Name</th>
-            <th>Job Position</th>
-            <th>Since</th>
-            <th class="text-right">Salary</th>
-            <th class="text-right">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="text-center">1</td>
-            <td>Andrew Mike</td>
-            <td>Develop</td>
-            <td>2013</td>
-            <td class="text-right">€ 99,225</td>
-            <td class="td-actions text-right">
-              <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">person</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">edit</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
+<div class="container mt-5">
+  <h2 class="mb-4">Liste des demandes de congé</h2>
 
-            <td class="text-center">2</td>
-            <td>John Doe</td>
-            <td>Design</td>
-            <td>2012</td>
-            <td class="text-right">€ 89,241</td>
-            <td class="td-actions text-right">
-              <button type="button" rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">person</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">edit</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">3</td>
-            <td>Alex Mike</td>
-            <td>Design</td>
-            <td>2010</td>
-            <td class="text-right">€ 92,144</td>
-            <td class="td-actions text-right">
-              <button type="button" rel="tooltip" class="btn btn-info btn-link btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">person</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-success btn-link btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">edit</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">4</td>
-            <td>Mike Monday</td>
-            <td>Marketing</td>
-            <td>2013</td>
-            <td class="text-right">€ 49,990</td>
-            <td class="td-actions text-right">
-              <button type="button" rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">person</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">edit</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">5</td>
-            <td>Paul Dickens</td>
-            <td>Communication</td>
-            <td>2015</td>
-            <td class="text-right">€ 69,201</td>
-            <td class="td-actions text-right">
-              <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">person</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">edit</i>
-              </button>
-              <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Type de congé</th>
+      <th>Employé</th>
+      <th>Manager</th>
+      <th>Date début</th>
+      <th>Date fin</th>
+      <th>Date de soumission</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let demande of demandes">
+      <td>{{ demande.id }}</td>
+      <td>{{ demande.typeConge }}</td>
+      <td>{{ demande.employeNomComplet || '—' }}</td>
+      <td>{{ demande.managerNomComplet || '—' }}</td>
+      <td>{{ demande.dateDebut | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ demande.dateFin | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ demande.dateSoumission | date: 'yyyy-MM-dd' }}</td>
+      <td>
+        <span class="badge bg-warning text-dark" *ngIf="demande.statut === 'En_Attante'">En attente</span>
+        <span class="badge bg-success" *ngIf="demande.statut === 'ACCEPTER'">Acceptée</span>
+        <span class="badge bg-danger" *ngIf="demande.statut === 'REFUSER'">Refusée</span>
+      </td>
+      <td>
+        <button class="btn btn-success btn-sm me-2" (click)="accepter(demande.id)">Accepter</button>
+        <button class="btn btn-danger btn-sm" (click)="refuser(demande.id)">Refuser</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-</body>

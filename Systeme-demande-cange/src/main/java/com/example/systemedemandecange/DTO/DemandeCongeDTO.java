@@ -1,53 +1,39 @@
-package com.example.systemedemandecange.Entitie;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+package com.example.systemedemandecange.DTO;
+
+import com.example.systemedemandecange.Entitie.Statut;
+import com.example.systemedemandecange.Entitie.TypeConge;
+
 import java.time.LocalDate;
 
-@Entity
-public class DemandeConge {
+public class DemandeCongeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name = "employe_id")
-    private Employe employe;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    @Enumerated(EnumType.STRING)
-    private Statut statut = Statut.En_Attante;
-
+    private String employeNomComplet;
+    private String managerNomComplet;
+    private Statut statut;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-
     private LocalDate dateSoumission;
     private LocalDate dateTraitement;
-
     private String motifRecu;
 
-    public DemandeConge() {}
+    public DemandeCongeDTO() {}
 
-    public DemandeConge(TypeConge typeConge, Employe employe, Manager manager,
-                        LocalDate dateDebut, LocalDate dateFin, LocalDate dateSoumission) {
+    public DemandeCongeDTO(Long id, TypeConge typeConge, String employeNomComplet, String managerNomComplet,
+                           Statut statut, LocalDate dateDebut, LocalDate dateFin,
+                           LocalDate dateSoumission, LocalDate dateTraitement, String motifRecu) {
+        this.id = id;
         this.typeConge = typeConge;
-        this.employe = employe;
-        this.manager = manager;
+        this.employeNomComplet = employeNomComplet;
+        this.managerNomComplet = managerNomComplet;
+        this.statut = statut;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.dateSoumission = dateSoumission;
-        this.statut = Statut.En_Attante;
+        this.dateTraitement = dateTraitement;
+        this.motifRecu = motifRecu;
     }
-
-    // Getters et setters
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -55,11 +41,11 @@ public class DemandeConge {
     public TypeConge getTypeConge() { return typeConge; }
     public void setTypeConge(TypeConge typeConge) { this.typeConge = typeConge; }
 
-    public Employe getEmploye() { return employe; }
-    public void setEmploye(Employe employe) { this.employe = employe; }
+    public String getEmployeNomComplet() { return employeNomComplet; }
+    public void setEmployeNomComplet(String employeNomComplet) { this.employeNomComplet = employeNomComplet; }
 
-    public Manager getManager() { return manager; }
-    public void setManager(Manager manager) { this.manager = manager; }
+    public String getManagerNomComplet() { return managerNomComplet; }
+    public void setManagerNomComplet(String managerNomComplet) { this.managerNomComplet = managerNomComplet; }
 
     public Statut getStatut() { return statut; }
     public void setStatut(Statut statut) { this.statut = statut; }

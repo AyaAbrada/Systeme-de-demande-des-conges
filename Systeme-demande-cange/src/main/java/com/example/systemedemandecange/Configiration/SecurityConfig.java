@@ -40,8 +40,7 @@ public class SecurityConfig {
                                 "/api/v1/auth/login",
                                 "/api/v1/auth/register",
                                 "/api/v1/auth/countUser",
-                                "/trajets/**",
-                                "/demandes/**",
+                                "/api/demandes/**",
                                 "/api/solde/**"
                         ).permitAll()
                         .anyRequest().authenticated()
