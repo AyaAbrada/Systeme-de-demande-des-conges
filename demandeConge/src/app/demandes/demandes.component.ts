@@ -25,14 +25,14 @@ export class DemandesComponent implements OnInit {
   }
 
   accepter(demandeId: number): void {
-    const managerId = 1; // à remplacer par manager connecté
+    const managerId = 17;
     this.demandeService.validerDemande(demandeId, managerId).subscribe(() => {
       this.chargerDemandes();
     });
   }
 
   refuser(demandeId: number): void {
-    const managerId = 1; // à remplacer par manager connecté
+    const managerId = 17;
     this.demandeService.refuserDemande(demandeId, managerId).subscribe(() => {
       this.chargerDemandes();
     });
