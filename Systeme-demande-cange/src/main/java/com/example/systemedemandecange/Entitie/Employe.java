@@ -1,6 +1,7 @@
 package com.example.systemedemandecange.Entitie;
-import jakarta.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -8,9 +9,11 @@ import java.util.List;
 public class Employe extends User {
 
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DemandeConge> demandes;
 
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<SoldeConge> soldes;
 
     public Employe() {}

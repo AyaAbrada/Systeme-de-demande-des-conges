@@ -2,13 +2,15 @@ package com.example.systemedemandecange.Service;
 import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Entitie.SoldeConge;
 import com.example.systemedemandecange.Entitie.TypeConge;
-import com.example.systemedemandecange.Repositorie.SoldeCongeRepositorie;
 import com.example.systemedemandecange.Repositorie.EmployeRepositorie;
+import com.example.systemedemandecange.Repositorie.SoldeCongeRepositorie;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class SoldeCongeService {
 
     private final SoldeCongeRepositorie soldeCongeRepository;
@@ -19,35 +21,41 @@ public class SoldeCongeService {
         this.employeRepository = employeRepository;
     }
 
-    // Initialisation du solde pour un employé
+    // Initialiser solde pour un employé
     public void initialiserSoldePourEmploye(Employe employe) {
-        soldeCongeRepository.save(new SoldeConge(employe, TypeConge.Annuel, 30)); // 30 jours/an
-        soldeCongeRepository.save(new SoldeConge(employe, TypeConge.Maladie, 9999)); // Maladie illimité
+        soldeCongeRepository.save(new SoldeConge(employe, TypeConge.Annuel, 30));     // 30 jours
+        soldeCongeRepository.save(new SoldeConge(employe, TypeConge.Maladie, 9999));  // illimité
     }
 
-    // Initialiser tous les employés
+    // Initialiser pour tous les employés
     public void initialiserPourTousLesEmployes() {
         List<Employe> employes = employeRepository.findAll();
         for (Employe e : employes) {
-            if (soldeCongeRepository.findByEmployeAndTypeConge(e, TypeConge.Annuel) == null) {
+            Optional<SoldeConge> existingSolde = Optional.ofNullable(soldeCongeRepository.findByEmployeAndTypeConge(e, TypeConge.Annuel));
+            if (existingSolde.isEmpty()) {
                 initialiserSoldePourEmploye(e);
             }
         }
     }
 
-    // Obtenir le solde par employé
+    // Obtenir solde d’un employé
     public List<SoldeConge> getSoldeParEmploye(Long employeId) {
         return soldeCongeRepository.findByEmployeId(employeId);
     }
 
-    // Décrémenter les jours restants
-    public boolean decrementerSolde(Employe employe, TypeConge typeConge, int joursDemandes) {
-        SoldeConge solde = soldeCongeRepository.findByEmployeAndTypeConge(employe, typeConge);
-        if (solde == null || solde.getJoursRestants() < joursDemandes) {
-            return false;
+    // Décrémenter solde
+    public boolean decrementerSolde(Employe employe, TypeConge typeConge, int nbJours) {
+        Optional<SoldeConge> optionalSolde = Optional.ofNullable(soldeCongeRepository.findByEmployeAndTypeConge(employe, typeConge));
+
+        if (optionalSolde.isPresent()) {
+            SoldeConge solde = optionalSolde.get();
+            if (solde.getJoursRestants() >= nbJours) {
+                solde.setJoursRestants(solde.getJoursRestants() - nbJours);
+                soldeCongeRepository.save(solde);
+                return true;
+            }
         }
-        solde.setJoursRestants(solde.getJoursRestants() - joursDemandes);
-        soldeCongeRepository.save(solde);
-        return true;
+
+        return false;
     }
 }

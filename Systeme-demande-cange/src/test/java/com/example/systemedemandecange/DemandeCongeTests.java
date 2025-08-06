@@ -52,7 +52,7 @@ public class DemandeCongeTests {
         DemandeConge saved = demandeService.create(demande);
 
         Manager manager = new Manager(); // Peut être simplifié si tu n’as pas encore relié à la BD
-        DemandeConge validated = demandeService.validerDemande(saved.getId(), manager);
+        DemandeConge validated = demandeService.validerDemande(saved.getId(), manager.getId());
 
         assertEquals(Statut.ACCEPTER, validated.getStatut());
         assertEquals(manager, validated.getManager());

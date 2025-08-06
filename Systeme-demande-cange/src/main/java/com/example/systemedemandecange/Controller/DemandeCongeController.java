@@ -1,5 +1,4 @@
 package com.example.systemedemandecange.Controller;
-
 import com.example.systemedemandecange.DTO.DemandeCongeDTO;
 import com.example.systemedemandecange.Entitie.DemandeConge;
 import com.example.systemedemandecange.Entitie.Manager;
@@ -54,7 +53,7 @@ public class DemandeCongeController {
     @PutMapping("/{id}/valider")
     public ResponseEntity<DemandeCongeDTO> validerDemande(@PathVariable Long id, @RequestParam Long managerId) {
         Manager manager = managerService.findById(managerId);
-        DemandeConge result = demandeCongeService.validerDemande(id, manager);
+        DemandeConge result = demandeCongeService.validerDemande(id, manager.getId());
         return ResponseEntity.ok(demandeCongeService.convertToDTO(result));
     }
 

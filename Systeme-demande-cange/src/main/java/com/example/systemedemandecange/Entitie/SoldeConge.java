@@ -1,4 +1,6 @@
 package com.example.systemedemandecange.Entitie;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class SoldeConge {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Employe employe;
 
     @Enumerated(EnumType.STRING)
@@ -24,6 +27,7 @@ public class SoldeConge {
         this.joursRestants = joursRestants;
     }
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }
