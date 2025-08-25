@@ -1,4 +1,5 @@
 package com.example.systemedemandecange.Entitie;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -8,9 +9,11 @@ public class Manager extends User {
 
     @OneToMany
     @JoinColumn(name = "manager_id")
+    @JsonManagedReference
     private List<Employe> equipe;
 
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DemandeConge> demandesAValider;
 
     public Manager() {}

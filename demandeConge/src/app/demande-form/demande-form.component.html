@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h2>Demander un congé</h2>
+
+  <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group mb-3">
+      <label for="typeConge">Type de congé</label>
+      <select id="typeConge" class="form-control" formControlName="typeConge" required>
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let type of typesConge" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="employeId">ID Employé</label>
+      <input type="number" id="employeId" class="form-control" formControlName="employeId" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="managerId">ID Manager</label>
+      <input type="number" id="managerId" class="form-control" formControlName="managerId" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="dateDebut">Date début</label>
+      <input type="date" id="dateDebut" class="form-control" formControlName="dateDebut" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="dateFin">Date fin</label>
+      <input type="date" id="dateFin" class="form-control" formControlName="dateFin" required>
+    </div>
+
+    <button type="submit" [disabled]="demandeForm.invalid">Envoyer la demande</button>
+  </form>
+</div>

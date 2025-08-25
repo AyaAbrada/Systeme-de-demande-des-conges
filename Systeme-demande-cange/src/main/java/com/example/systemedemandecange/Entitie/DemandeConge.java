@@ -1,5 +1,6 @@
 package com.example.systemedemandecange.Entitie;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -13,14 +14,16 @@ public class DemandeConge {
     @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
 
+    // ✅ Utiliser JsonIgnoreProperties pour éviter les boucles infinies,
+    // mais garder la désérialisation depuis JSON
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "employe_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Employe employe;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "manager_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Manager manager;
 
     @Enumerated(EnumType.STRING)
@@ -28,7 +31,6 @@ public class DemandeConge {
 
     private LocalDate dateDebut;
     private LocalDate dateFin;
-
     private LocalDate dateSoumission;
     private LocalDate dateTraitement;
 
@@ -47,8 +49,7 @@ public class DemandeConge {
         this.statut = Statut.En_Attante;
     }
 
-    // Getters et setters
-
+    // ✅ Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

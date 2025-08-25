@@ -6,6 +6,7 @@ import {HistoriqueComponent} from './historique/historique.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DashboardEmployeComponent} from './dashboard-employe/dashboard-employe.component';
 import {DashboardManagerComponent} from './dashboard-manager/dashboard-manager.component';
+import {DemandeFormComponent} from './demande-form/demande-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   {path: "dashboard", component: DashboardComponent},
   {path: "employe-manager", component: DashboardEmployeComponent},
   {path: "dashboard-manager", component: DashboardManagerComponent},
+  {path: "demande-form", component: DemandeFormComponent}
 
 ];

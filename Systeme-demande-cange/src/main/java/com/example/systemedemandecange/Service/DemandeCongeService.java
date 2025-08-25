@@ -34,19 +34,16 @@ public class DemandeCongeService {
     }
 
     public DemandeConge create(DemandeConge demande) {
-        //  Récupérer employé et manager depuis leurs ID
         Employe employe = employeRepositorie.findById(demande.getEmploye().getId())
                 .orElseThrow(() -> new RuntimeException("Employé non trouvé"));
 
         Manager manager = managerRepositorie.findById(demande.getManager().getId())
                 .orElseThrow(() -> new RuntimeException("Manager non trouvé"));
 
-        //  Vérification du type de congé
         if (demande.getTypeConge() == null) {
             throw new RuntimeException("Type de congé invalide ou manquant.");
         }
 
-        // Affectation
         demande.setEmploye(employe);
         demande.setManager(manager);
         demande.setStatut(Statut.En_Attante);

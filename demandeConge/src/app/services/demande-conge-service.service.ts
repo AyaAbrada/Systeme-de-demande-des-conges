@@ -34,4 +34,10 @@ export class DemandeCongeServiceService {
   refuserDemande(id: number, managerId: number): Observable<DemandeConge> {
     return this.http.put<DemandeConge>(`${this.apiUrl}/${id}/refuser?managerId=${managerId}`, {});
   }
+
+  createDemande(demande: any) {
+    return this.http.post(this.apiUrl, demande);
+  }
+
+
 }
