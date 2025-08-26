@@ -1,63 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DemandeCongeServiceService} from '../services/demande-conge-service.service';
-import {CommonModule} from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-demande-form',
   templateUrl: './demande-form.component.html',
-  imports: [CommonModule, ReactiveFormsModule],
-  standalone: true,
+  imports: [
+    ReactiveFormsModule
+  ],
   styleUrls: ['./demande-form.component.css']
 })
 export class DemandeFormComponent implements OnInit {
-
   demandeForm!: FormGroup;
-  typesConge: string[] = ['Maladie', 'Annuel'];
 
-  constructor(
-    private fb: FormBuilder,
-    private demandeService: DemandeCongeServiceService
-  ) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
+    // Initialisation du formulaire avec les champs nécessaires
     this.demandeForm = this.fb.group({
-      typeConge: ['', Validators.required],
       employeId: ['', Validators.required],
       managerId: ['', Validators.required],
+      typeConge: ['', Validators.required],
       dateDebut: ['', Validators.required],
-      dateFin: ['', Validators.required],
+      dateFin: ['', Validators.required]
     });
   }
 
   onSubmit(): void {
-    console.log('onSubmit called');
     if (this.demandeForm.valid) {
-      const formValues = this.demandeForm.value;
+      const demande = this.demandeForm.value;
+      console.log("Payload envoyé:", demande);
 
-      // جبد id المستخدم المسجل دخول من الـ localStorage أو سيرفر
-      const employeId = localStorage.getItem('userId'); // مثال فقط
-
-      const demande = {
-        typeConge: formValues.typeConge,
-        dateDebut: formValues.dateDebut,
-        dateFin: formValues.dateFin,
-        employe: { id: Number(employeId) },
-        manager: { id: Number(formValues.managerId) }
-      };
-
-      this.demandeService.createDemande(demande).subscribe({
+      this.http.post("http://localhost:8083/api/demandes", demande).subscribe({
         next: (res) => {
-          console.log('Réponse:', res);
-          alert('Demande envoyée avec succès !');
+          console.log("Succès:", res);
+          alert("Demande envoyée avec succès ");
+          this.demandeForm.reset();
         },
         error: (err) => {
-          console.error('Erreur:', err);
-          alert('Erreur lors de l\'envoi de la demande.');
+          console.error("Erreur:", err);
+          alert("Erreur lors de l'envoi ");
         }
       });
-
+    } else {
+      alert("Veuillez remplir tous les champs !");
     }
-
   }
 }
