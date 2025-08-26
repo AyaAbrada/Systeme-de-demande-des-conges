@@ -1,121 +1,59 @@
-N<h4><small>Striped With Checkboxes</small></h4>
-<div class="table-responsive">
+<h4><small>Historique des demandes</small></h4>
+
+<div *ngIf="loading" class="text-center my-3">
+  Chargement des demandes...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!loading && demandes.length > 0" class="table-responsive">
   <table class="table table-striped">
     <thead>
     <tr>
       <th class="text-center">#</th>
       <th></th>
-      <th>Product Name</th>
+      <th>Employé</th>
+      <th>Manager</th>
       <th>Type</th>
-      <th>Qty</th>
-      <th class="text-right">Price</th>
-      <th class="text-right">Amount</th>
+      <th>Statut</th>
+      <th class="text-right">Début</th>
+      <th class="text-right">Fin</th>
+      <th class="text-right">Soumission</th>
+      <th class="text-right">Traitement</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td class="text-center">1</td>
+    <tr *ngFor="let demande of demandes; let i = index">
+      <td class="text-center">{{ i + 1 }}</td>
       <td class="text-center">
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked="">
-            <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
+            <input class="form-check-input" type="checkbox">
+            <span class="form-check-sign"><span class="check"></span></span>
           </label>
         </div>
       </td>
-      <td>Moleskine Agenda</td>
-      <td>Office</td>
-      <td>25</td>
-      <td class="text-right">€ 49</td>
-      <td class="text-right">€ 1,225</td>
-    </tr>
-    <tr>
-
-      <td class="text-center">2</td>
-      <td class="text-center">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="">
-            <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-          </label>
-        </div>
+      <td>{{ demande.employeNomComplet }}</td>
+      <td>{{ demande.managerNomComplet }}</td>
+      <td>{{ demande.typeConge }}</td>
+      <td>
+          <span [class.bg-warning]="demande.statut === 'En_Attante'"
+                [class.bg-success]="demande.statut === 'ACCEPTER'"
+                [class.bg-danger]="demande.statut === 'REFUSER'">
+            {{ demande.statut }}
+          </span>
       </td>
-      <td>Stabilo Pen</td>
-      <td>Office</td>
-      <td>30</td>
-      <td class="text-right">€ 10</td>
-      <td class="text-right">€ 300</td>
-    </tr>
-    <tr>
-
-      <td class="text-center">3</td>
-      <td class="text-center">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked="">
-            <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-          </label>
-        </div>
-      </td>
-      <td>A4 Paper Pack</td>
-      <td>Office</td>
-      <td>50</td>
-      <td class="text-right">€ 10.99</td>
-      <td class="text-right">€ 109</td>
-    </tr>
-    <tr>
-
-      <td class="text-center">4</td>
-      <td class="text-center">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="">
-            <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-          </label>
-        </div>
-      </td>
-      <td>Apple iPad</td>
-      <td>Meeting</td>
-      <td>10</td>
-      <td class="text-right">€ 499.00</td>
-      <td class="text-right">€ 4,990</td>
-    </tr>
-    <tr>
-
-      <td class="text-center">5</td>
-      <td class="text-center">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked="">
-            <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-          </label>
-        </div>
-      </td>
-      <td>Apple iPhone</td>
-      <td>Communication</td>
-      <td>10</td>
-      <td class="text-right">€ 599.00</td>
-      <td class="text-right">€ 5,999</td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-      <td class="td-total">
-        Total
-      </td>
-      <td class="td-price">
-        <small>€</small>12,999
-      </td>
+      <td class="text-right">{{ demande.dateDebut }}</td>
+      <td class="text-right">{{ demande.dateFin }}</td>
+      <td class="text-right">{{ demande.dateSoumission }}</td>
+      <td class="text-right">{{ demande.dateTraitement || '-' }}</td>
     </tr>
     </tbody>
   </table>
+</div>
+
+<div *ngIf="!loading && demandes.length === 0" class="text-center my-3">
+  Aucune demande à afficher.
 </div>

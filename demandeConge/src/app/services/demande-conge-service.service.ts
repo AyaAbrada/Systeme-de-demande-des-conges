@@ -19,7 +19,7 @@ export interface DemandeConge {
   providedIn: 'root'
 })
 export class DemandeCongeServiceService {
-  private apiUrl = 'http://localhost:8083/api/demandes';
+  private apiUrl = 'http://localyhost:8083/api/demandes';
 
   constructor(private http: HttpClient) {}
 

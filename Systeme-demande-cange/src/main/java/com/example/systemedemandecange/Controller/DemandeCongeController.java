@@ -31,7 +31,7 @@ public class DemandeCongeController {
         this.employeService = employeService;
     }
 
-    // ✅ Créer une demande avec DTO de requête
+    //  Créer une demande avec DTO de requête
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> create(@RequestBody DemandeCongeRequest request) {
         // Récupérer les entités existantes
@@ -51,13 +51,13 @@ public class DemandeCongeController {
         return ResponseEntity.ok(demandeCongeService.convertToDTO(saved));
     }
 
-    // ✅ Récupérer toutes les demandes
+    //  Récupérer toutes les demandes
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<DemandeCongeDTO> getAll() {
         return demandeCongeService.getAllDTOs();
     }
 
-    // ✅ Récupérer une demande par ID
+    //  Récupérer une demande par ID
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> getById(@PathVariable Long id) {
         return demandeCongeService.getById(id)
@@ -66,20 +66,20 @@ public class DemandeCongeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ Mettre à jour une demande
+    //  Mettre à jour une demande
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeConge> updateDemande(@RequestBody DemandeConge demande) {
         return ResponseEntity.ok(demandeCongeService.updatedemande(demande));
     }
 
-    // ✅ Supprimer une demande
+    //  Supprimer une demande
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         demandeCongeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ Valider une demande
+    //  Valider une demande
     @PutMapping(value = "/{id}/valider", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> validerDemande(@PathVariable Long id, @RequestParam Long managerId) {
         Manager manager = managerService.findById(managerId);
@@ -87,7 +87,7 @@ public class DemandeCongeController {
         return ResponseEntity.ok(demandeCongeService.convertToDTO(result));
     }
 
-    // ✅ Refuser une demande
+    //  Refuser une demande
     @PutMapping(value = "/{id}/refuser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> refuseDemande(@PathVariable Long id, @RequestParam Long managerId) {
         Manager manager = managerService.findById(managerId);
