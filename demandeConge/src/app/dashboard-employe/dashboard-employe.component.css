@@ -1,0 +1,87 @@
+/* ---- Général ---- */
+body {
+  background: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---- Titres ---- */
+h2 {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+p.text-muted {
+  font-size: 1.1rem;
+}
+
+/* ---- Cards ---- */
+.card {
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+  background: white;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ---- Icônes ---- */
+.card i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover i {
+  transform: scale(1.2);
+}
+
+/* ---- Titres dans cards ---- */
+.card-title {
+  font-weight: 600;
+  color: #34495e;
+  margin-top: 10px;
+}
+
+/* ---- Boutons ---- */
+.card .btn {
+  margin-top: 10px;
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.card .btn:hover {
+  transform: scale(1.05);
+}
+
+/* ---- Couleurs personnalisées ---- */
+.btn-primary {
+  background: #007bff;
+  border: none;
+}
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-success {
+  background: #28a745;
+  border: none;
+}
+.btn-success:hover {
+  background: #1e7e34;
+}
+
+.btn-warning {
+  background: #ffc107;
+  border: none;
+  color: #212529;
+}
+.btn-warning:hover {
+  background: #e0a800;
+  color: white;
+}
