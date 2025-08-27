@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <div class="card shadow-lg p-4 rounded">
+    <h2 class="mb-4 text-center text-primary">🔍 Consulter le solde de congé</h2>
+
+    <!-- Input + bouton -->
+    <div class="input-group mb-3">
+      <input type="number" [(ngModel)]="employeId" class="form-control" placeholder="Entrer l'ID de l'employé">
+      <button class="btn btn-primary" (click)="getSolde()">Rechercher</button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="alert alert-info text-center">
+      Chargement en cours...
+    </div>
+
+    <!-- Erreur -->
+    <div *ngIf="error" class="alert alert-danger text-center">
+      {{ error }}
+    </div>
+
+    <!-- Tableau -->
+    <table *ngIf="soldes.length > 0" class="table table-striped table-hover mt-4 text-center align-middle">
+      <thead class="table-dark">
+      <tr>
+        <th>Type de congé</th>
+        <th>Jours restants</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let solde of soldes">
+        <td><span class="badge bg-secondary p-2">{{ solde.typeConge }}</span></td>
+        <td><strong>{{ solde.joursRestants }}</strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

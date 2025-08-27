@@ -1,5 +1,4 @@
 package com.example.systemedemandecange.Controller;
-
 import com.example.systemedemandecange.Entitie.SoldeConge;
 import com.example.systemedemandecange.Service.SoldeCongeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/solde")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SoldeCongeController {
 
     private final SoldeCongeService soldeCongeService;
