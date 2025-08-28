@@ -3,8 +3,8 @@ package com.example.systemedemandecange.DTO;
 public class DemandeCongeRequest {
     private Long employeId;
     private Long managerId;
-    private String typeConge;  // ou TypeConge si tu utilises un enum
-    private String dateDebut;  // ou LocalDate si tu veux
+    private String typeConge;
+    private String dateDebut;
     private String dateFin;
 
     // Getters et setters

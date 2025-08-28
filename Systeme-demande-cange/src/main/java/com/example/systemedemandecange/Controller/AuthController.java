@@ -23,8 +23,9 @@ public class AuthController {
     private final UserService userService;
     private final JwtUtils jwtUtils;
 
-
-    public AuthController(UserRepositorie userRepositorie, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserService userService, JwtUtils jwtUtils){
+    public AuthController(UserRepositorie userRepositorie, PasswordEncoder passwordEncoder,
+                          AuthenticationManager authenticationManager, UserService userService,
+                          JwtUtils jwtUtils) {
         this.userRepositorie = userRepositorie;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
@@ -56,22 +57,32 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
+            // Authentification
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
 
+            // Génération du token JWT
             String token = jwtUtils.generateJwtToken(loginRequest.getUsername());
 
+            // Récupération de l'utilisateur
             User user = userRepositorie.findByUsername(loginRequest.getUsername());
             String role = "";
-            if (user instanceof Manager) role = "MANAGER";
-            else if (user instanceof Employe) role = "EMPLOYE";
+            Long employeId = null;
+            Long managerId = null;
 
-            return ResponseEntity.ok(new LoginResponse(token, role));
+            if (user instanceof Manager) {
+                role = "MANAGER";
+                managerId = user.getId();
+            } else if (user instanceof Employe) {
+                role = "EMPLOYE";
+                employeId = user.getId();
+            }
+
+            // Retour de la réponse complète
+            return ResponseEntity.ok(new LoginResponse(token, role, employeId));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
-
-
 }

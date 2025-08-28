@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface DemandeConge {
-  id: number;
-  typeConge: string;
-  employeNomComplet: string;
-  managerNomComplet: string;
-  statut: string;
-  dateDebut: string;
-  dateFin: string;
-  dateSoumission: string;
-  dateTraitement: string;
-  motifRecu: string;
-}
+import {DemandeConge} from '../model/demande-conge.model';
 
 @Injectable({
   providedIn: 'root'

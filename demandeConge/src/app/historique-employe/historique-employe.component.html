@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h2>Historique des demandes</h2>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Chargement des demandes...
+  </div>
+
+  <div *ngIf="errorMessage && !loading" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="!loading && demandes.length > 0" class="table table-bordered mt-3">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Date début</th>
+      <th>Date fin</th>
+      <th>Date soumission</th>
+      <th>Date traitement</th>
+      <th>Statut</th>
+      <th>Motif Reçu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let demande of demandes">
+      <td>{{ demande.typeConge }}</td>
+      <td>{{ demande.dateDebut | date:'dd/MM/yyyy' }}</td>
+      <td>{{ demande.dateFin | date:'dd/MM/yyyy' }}</td>
+      <td>{{ demande.dateSoumission | date:'dd/MM/yyyy' }}</td>
+      <td>{{ demande.dateTraitement ? (demande.dateTraitement | date:'dd/MM/yyyy') : 'En attente' }}</td>
+      <td>{{ demande.statut }}</td>
+      <td>{{ demande.motifRecu || '-' }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && demandes.length === 0 && !errorMessage" class="alert alert-warning">
+    Aucune demande pour le moment.
+  </div>
+</div>

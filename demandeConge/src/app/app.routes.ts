@@ -8,6 +8,7 @@ import {DashboardEmployeComponent} from './dashboard-employe/dashboard-employe.c
 import {DashboardManagerComponent} from './dashboard-manager/dashboard-manager.component';
 import {DemandeFormComponent} from './demande-form/demande-form.component';
 import {SoldeComponent} from './solde/solde.component';
+import {HistoriqueEmployeComponent} from './historique-employe/historique-employe.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   {path: "register",component: RegisterComponent},
   {path: "demandes",component: DemandesComponent},
   {path: "historique", component: HistoriqueComponent},
+  {path: "historique-employe", component: HistoriqueEmployeComponent},
   {path: "dashboard", component: DashboardComponent},
   {path: "employe-manager", component: DashboardEmployeComponent},
   {path: "dashboard-manager", component: DashboardManagerComponent},

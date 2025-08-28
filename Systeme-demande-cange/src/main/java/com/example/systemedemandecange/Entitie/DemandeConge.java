@@ -14,8 +14,7 @@ public class DemandeConge {
     @Enumerated(EnumType.STRING)
     private TypeConge typeConge;
 
-    // ✅ Utiliser JsonIgnoreProperties pour éviter les boucles infinies,
-    // mais garder la désérialisation depuis JSON
+    // éviter les boucles infinies
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employe_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -49,7 +48,6 @@ public class DemandeConge {
         this.statut = Statut.En_Attante;
     }
 
-    // ✅ Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

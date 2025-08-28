@@ -1,25 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {DemandeConge} from '../model/demande-conge.model';
 
-export interface DemandeConge {
-  id: number;
-  typeConge: string;
-  employeNomComplet: string | null;
-  managerNomComplet: string | null;
-  dateDebut: string;
-  dateFin: string;
-  dateSoumission: string;
-  dateTraitement: string | null;
-  statut: string;
-  motifRecu?: string | null;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DemandeCongeServiceService {
-  private apiUrl = 'http://localyhost:8083/api/demandes';
+  private apiUrl = 'http://localhost:8083/api/demandes';
 
   constructor(private http: HttpClient) {}
 
@@ -38,6 +27,12 @@ export class DemandeCongeServiceService {
   createDemande(demande: any) {
     return this.http.post(this.apiUrl, demande);
   }
+
+  getDemandesByEmploye(employeId: number): Observable<DemandeConge[]> {
+    return this.http.get<DemandeConge[]>(`${this.apiUrl}/employe/${employeId}`);
+  }
+
+
 
 
 }

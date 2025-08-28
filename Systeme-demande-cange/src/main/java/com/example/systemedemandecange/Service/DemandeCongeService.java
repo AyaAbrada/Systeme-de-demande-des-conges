@@ -141,4 +141,13 @@ public class DemandeCongeService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<DemandeCongeDTO> getByEmployeId(Long employeId) {
+        return demandeCongeRepositorie.findByEmployeId(employeId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
 }

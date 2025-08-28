@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DemandeConge, DemandeCongeServiceService } from '../services/demande-conge-service.service';
+import { DemandeCongeServiceService } from '../services/demande-conge-service.service';
 import { CommonModule } from '@angular/common';
+import {DemandeConge} from '../model/demande-conge.model';
 
 @Component({
   selector: 'app-demandes',
@@ -25,14 +26,14 @@ export class DemandesComponent implements OnInit {
   }
 
   accepter(demandeId: number): void {
-    const managerId = 17;
+    const managerId = 20;
     this.demandeService.validerDemande(demandeId, managerId).subscribe(() => {
       this.chargerDemandes();
     });
   }
 
   refuser(demandeId: number): void {
-    const managerId = 17;
+    const managerId = 20;
     this.demandeService.refuserDemande(demandeId, managerId).subscribe(() => {
       this.chargerDemandes();
     });

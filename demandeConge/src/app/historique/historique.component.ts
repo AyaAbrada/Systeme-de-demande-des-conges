@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DemandeConge, HistoriqueService } from '../services/historique.service';
+import { HistoriqueService } from '../services/historique.service';
 import { CommonModule } from '@angular/common';
+import {DemandeConge} from '../model/demande-conge.model';
 
 @Component({
   selector: 'app-historique',

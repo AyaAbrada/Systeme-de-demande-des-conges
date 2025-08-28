@@ -1,7 +1,6 @@
 package com.example.systemedemandecange.Controller;
 import com.example.systemedemandecange.Entitie.SoldeConge;
 import com.example.systemedemandecange.Service.SoldeCongeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

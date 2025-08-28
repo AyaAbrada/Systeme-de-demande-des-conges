@@ -1,18 +1,17 @@
 package com.example.systemedemandecange.Controller;
-
 import com.example.systemedemandecange.DTO.DemandeCongeDTO;
 import com.example.systemedemandecange.DTO.DemandeCongeRequest;
 import com.example.systemedemandecange.Entitie.DemandeConge;
 import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Entitie.TypeConge;
+import com.example.systemedemandecange.Repositorie.DemandeCongeRepositorie;
 import com.example.systemedemandecange.Service.DemandeCongeService;
 import com.example.systemedemandecange.Service.EmployeService;
 import com.example.systemedemandecange.Service.ManagerService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,11 +21,13 @@ import java.util.List;
 public class DemandeCongeController {
 
     private final DemandeCongeService demandeCongeService;
+    private final DemandeCongeRepositorie demandeCongeRepositorie;
     private final ManagerService managerService;
     private final EmployeService employeService;
 
-    public DemandeCongeController(DemandeCongeService demandeCongeService, ManagerService managerService, EmployeService employeService) {
+    public DemandeCongeController(DemandeCongeService demandeCongeService, DemandeCongeRepositorie demandeCongeRepositorie, ManagerService managerService, EmployeService employeService) {
         this.demandeCongeService = demandeCongeService;
+        this.demandeCongeRepositorie = demandeCongeRepositorie;
         this.managerService = managerService;
         this.employeService = employeService;
     }
@@ -94,4 +95,13 @@ public class DemandeCongeController {
         DemandeConge result = demandeCongeService.refuseDemande(id, manager);
         return ResponseEntity.ok(demandeCongeService.convertToDTO(result));
     }
+
+    // Récupérer toutes les demandes d’un employé par son id
+    @GetMapping(value = "/employe/{employeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<DemandeCongeDTO> getDemandesByEmploye(@PathVariable Long employeId) {
+        return demandeCongeService.getByEmployeId(employeId);
+    }
+
+
+
 }
