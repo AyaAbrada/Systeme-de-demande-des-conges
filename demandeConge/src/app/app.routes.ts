@@ -10,6 +10,7 @@ import {DemandeFormComponent} from './demande-form/demande-form.component';
 import {SoldeComponent} from './solde/solde.component';
 import {HistoriqueEmployeComponent} from './historique-employe/historique-employe.component';
 import {SoldeEmployeComponent} from './solde-employe/solde-employe.component';
+import {CreateEmployeeComponent} from './create-employee/create-employee.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,8 +24,7 @@ export const routes: Routes = [
   {path: "dashboard-manager", component: DashboardManagerComponent},
   {path: "demande-form", component: DemandeFormComponent},
   {path: "solde", component: SoldeComponent},
-  {path: "solde-employe", component: SoldeEmployeComponent}
-
-
+  {path: "solde-employe", component: SoldeEmployeComponent},
+  {path: "create-employee", component: CreateEmployeeComponent}
 
 ];

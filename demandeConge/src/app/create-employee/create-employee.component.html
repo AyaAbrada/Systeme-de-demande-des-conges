@@ -1,0 +1,17 @@
+<div *ngIf="authService.getRole() === 'MANAGER'">
+  <!-- Formulaire pour créer un employé -->
+  <h2>Créer un employé</h2>
+  <form (ngSubmit)="createEmployee()">
+    <input type="text" [(ngModel)]="name" name="name" placeholder="Nom" required>
+    <input type="text" [(ngModel)]="prenom" name="prenom" placeholder="Prénom" required>
+    <input type="text" [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" required>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+    <button type="submit">Créer employé</button>
+  </form>
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="authService.getRole() !== 'MANAGER'">
+  {{ authService.getRole() }}
+  <p>Vous n’êtes pas autorisé à créer des employés.</p>
+</div>

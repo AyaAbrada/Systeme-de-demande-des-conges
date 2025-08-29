@@ -3,23 +3,19 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../services/auth-service.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginResponse } from '../model/user.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    RouterLink,
-    FormsModule,
-    CommonModule
-  ],
+  imports: [RouterLink, FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   user = {
     username: '',
-    password: '',
-    role: ''
+    password: ''
   };
 
   message: string = '';
@@ -31,30 +27,25 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.user).subscribe({
-      next: (res: any) => {
+      next: (res: LoginResponse) => {
         console.log('Réponse de login:', res);
 
-        // Sauvegarde du token
+        // Sauvegarde token et rôle
         this.authService.saveToken(res.token);
+        this.authService.saveRole(res.role);
 
-        // Sauvegarde de l'id employé (si backend le renvoie)
-        if (res.employeId || res.id) {
-          localStorage.setItem('employeId', (res.employeId || res.id).toString());
+        // Sauvegarde employeId si dispo
+        if (res.employeId) {
+          localStorage.setItem('employeId', res.employeId.toString());
         }
 
-
-        const role = res.role || this.user.role;
-
-        switch (role) {
-          case 'MANAGER':
-            this.router.navigate(['/dashboard-manager']);
-            break;
-          case 'EMPLOYE':
-            console.log('Réponse de login:', res);
-            this.router.navigate(['/dashboard-employe']);
-            break;
-          default:
-            this.router.navigate(['/dashboard']);
+        // Redirection selon rôle
+        if (res.role === 'MANAGER') {
+          this.router.navigate(['/dashboard-manager']);
+        } else if (res.role === 'EMPLOYE') {
+          this.router.navigate(['/dashboard-employe']);
+        } else {
+          this.router.navigate(['/dashboard']);
         }
       },
       error: (err) => {

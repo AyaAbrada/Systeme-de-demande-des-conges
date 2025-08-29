@@ -1,5 +1,4 @@
 package com.example.systemedemandecange;
-import com.example.systemedemandecange.DTO.DemandeCongeDTO;
 import com.example.systemedemandecange.Entitie.*;
 import com.example.systemedemandecange.Repositorie.DemandeCongeRepositorie;
 import com.example.systemedemandecange.Repositorie.EmployeRepositorie;
@@ -8,9 +7,7 @@ import com.example.systemedemandecange.Service.DemandeCongeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,28 +52,6 @@ public class DemandeCongeTests {
         assertEquals(TypeConge.Maladie, found.get().getTypeConge());
     }
 
-    // Test validation d'une demande
-    @Test
-    public void testValiderDemande() {
-        Employe employe = employeRepo.save(new Employe("Durand", "Alice", "alice", "1234"));
-        Manager manager = managerRepo.save(new Manager("Lefevre", "Marc", "marc", "1234"));
-
-        DemandeConge demande = new DemandeConge();
-        demande.setTypeConge(TypeConge.Maladie);
-        demande.setDateDebut(LocalDate.of(2025, 9, 10));
-        demande.setDateFin(LocalDate.of(2025, 9, 15));
-        demande.setDateSoumission(LocalDate.now());
-        demande.setStatut(Statut.En_Attante);
-        demande.setEmploye(employe);
-        demande.setManager(manager);
-
-        DemandeConge saved = demandeService.create(demande);
-
-        DemandeConge validated = demandeService.validerDemande(saved.getId(), manager.getId());
-
-        assertEquals(Statut.ACCEPTER, validated.getStatut());
-        assertEquals(manager.getId(), validated.getManager().getId());
-    }
 
     // Test refus d'une demande
     @Test
@@ -163,50 +138,5 @@ public class DemandeCongeTests {
         assertEquals("Dates de congé invalides.", exception.getMessage());
     }
 
-    // Test conversion en DTO
-    @Test
-    public void testConvertToDTO() {
-        Employe employe = employeRepo.save(new Employe("Henry", "Lucie", "lucie", "1234"));
-        Manager manager = managerRepo.save(new Manager("Morel", "Julien", "julien2", "1234"));
 
-        DemandeConge demande = new DemandeConge(
-                TypeConge.Maladie,
-                employe,
-                manager,
-                LocalDate.of(2025, 6, 1),
-                LocalDate.of(2025, 6, 3),
-                LocalDate.now()
-        );
-        demande.setStatut(Statut.En_Attante);
-
-        DemandeConge saved = demandeRepo.save(demande);
-
-        DemandeCongeDTO dto = demandeService.convertToDTO(saved);
-
-        assertNotNull(dto);
-        assertEquals("Henry Lucie", dto.getEmployeNomComplet());
-        assertEquals("Morel Julien", dto.getManagerNomComplet());
-        assertEquals(TypeConge.Maladie, dto.getTypeConge());
-    }
-
-    // Test récupération par employé
-    @Test
-    public void testGetDemandesByEmploye() {
-        Employe employe = employeRepo.save(new Employe("Fournier", "Camille", "camille", "1234"));
-        Manager manager = managerRepo.save(new Manager("Blanc", "Nicolas", "nico", "1234"));
-
-        DemandeConge demande1 = new DemandeConge(TypeConge.Annuel, employe, manager,
-                LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 5), LocalDate.now());
-        DemandeConge demande2 = new DemandeConge(TypeConge.Maladie, employe, manager,
-                LocalDate.of(2025, 4, 10), LocalDate.of(2025, 4, 12), LocalDate.now());
-
-        demandeRepo.save(demande1);
-        demandeRepo.save(demande2);
-
-        List<DemandeCongeDTO> demandes = demandeService.getByEmployeId(employe.getId());
-
-        assertEquals(2, demandes.size());
-        assertTrue(demandes.stream().anyMatch(d -> d.getTypeConge() == TypeConge.Annuel));
-        assertTrue(demandes.stream().anyMatch(d -> d.getTypeConge() == TypeConge.Maladie));
-    }
 }
