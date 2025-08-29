@@ -25,6 +25,9 @@ public class Employe extends User {
         this.soldes = soldes;
     }
 
+    public Employe(String dupont, String jean, String dupont1, String number) {
+    }
+
     // Getters & Setters
     public List<DemandeConge> getDemandes() { return demandes; }
     public void setDemandes(List<DemandeConge> demandes) { this.demandes = demandes; }

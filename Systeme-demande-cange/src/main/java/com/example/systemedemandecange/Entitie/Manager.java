@@ -25,6 +25,10 @@ public class Manager extends User {
         this.demandesAValider = demandesAValider;
     }
 
+
+    public Manager(String martin, String paul, String martin1, String number) {
+    }
+
     public List<Employe> getEquipe() { return equipe; }
     public void setEquipe(List<Employe> equipe) { this.equipe = equipe; }
 
