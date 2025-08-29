@@ -24,13 +24,9 @@ public class EmployeService {
             throw new RuntimeException("Employé non trouvé avec l'ID : " + id);
         }
     }
-
-    // Sauvegarder un employé
     public Employe save(Employe employe) {
         return employeRepository.save(employe);
     }
-
-    // Récupérer tous les employés
     public Iterable<Employe> getAll() {
         return employeRepository.findAll();
     }

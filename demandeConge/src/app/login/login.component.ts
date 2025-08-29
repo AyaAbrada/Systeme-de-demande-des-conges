@@ -51,7 +51,7 @@ export class LoginComponent {
             break;
           case 'EMPLOYE':
             console.log('Réponse de login:', res);
-            this.router.navigate(['/employe-manager']);
+            this.router.navigate(['/dashboard-employe']);
             break;
           default:
             this.router.navigate(['/dashboard']);

@@ -9,6 +9,7 @@ import {DashboardManagerComponent} from './dashboard-manager/dashboard-manager.c
 import {DemandeFormComponent} from './demande-form/demande-form.component';
 import {SoldeComponent} from './solde/solde.component';
 import {HistoriqueEmployeComponent} from './historique-employe/historique-employe.component';
+import {SoldeEmployeComponent} from './solde-employe/solde-employe.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,10 +19,12 @@ export const routes: Routes = [
   {path: "historique", component: HistoriqueComponent},
   {path: "historique-employe", component: HistoriqueEmployeComponent},
   {path: "dashboard", component: DashboardComponent},
-  {path: "employe-manager", component: DashboardEmployeComponent},
+  {path: "dashboard-employe", component: DashboardEmployeComponent},
   {path: "dashboard-manager", component: DashboardManagerComponent},
   {path: "demande-form", component: DemandeFormComponent},
-  {path: "solde", component: SoldeComponent}
+  {path: "solde", component: SoldeComponent},
+  {path: "solde-employe", component: SoldeEmployeComponent}
+
 
 
 ];
