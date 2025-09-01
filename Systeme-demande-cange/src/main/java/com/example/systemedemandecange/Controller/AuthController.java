@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,16 +35,11 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
-    /**
-     * Registration endpoint
-     * - EMPLOYE can only be created by a manager
-     * - MANAGER can self-register (or you can restrict it)
-     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request,
                                           @RequestHeader(value = "Authorization", required = false) String authHeader) {
         try {
-            // EMPLOYE creation requires manager token
+            // EMPLOYE creation requires Manager token
             if ("EMPLOYE".equalsIgnoreCase(request.getRole())) {
                 if (authHeader == null || !authHeader.startsWith("Bearer "))
                     return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -73,7 +69,6 @@ public class AuthController {
 
             userRepositorie.save(newUser);
 
-            // Return JSON response
             return ResponseEntity.ok(Map.of(
                     "message", "Utilisateur créé avec succès",
                     "username", newUser.getUsername(),
@@ -87,13 +82,10 @@ public class AuthController {
     }
 
 
-    /**
-     * Login endpoint
-     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
-            // Spring Security authentication
+            // Authenticate user
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),
@@ -102,11 +94,16 @@ public class AuthController {
             );
 
             User user = userRepositorie.findByUsername(loginRequest.getUsername());
-            if (user == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur introuvable");
+            if (user == null)
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur introuvable");
 
-            String token = jwtUtils.generateJwtToken(user.getUsername());
+            // Determine role
             String role = (user instanceof Manager) ? "MANAGER" : "EMPLOYE";
             Long employeId = (user instanceof Employe) ? user.getId() : null;
+
+            // Generate token with roles
+            List<String> roles = List.of(role); // wrap role in a list
+            String token = jwtUtils.generateJwtToken(user.getUsername(), roles);
 
             return ResponseEntity.ok(new LoginResponse(token, role, employeId));
 
@@ -115,4 +112,5 @@ public class AuthController {
                     .body("Nom d’utilisateur ou mot de passe incorrect");
         }
     }
+
 }

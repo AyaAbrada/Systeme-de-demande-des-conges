@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import {AuthServiceService} from '../services/auth-service.service';
-import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
-import {RegisterRequest} from '../model/register-request.model';
+import { FormsModule } from '@angular/forms';   // ✅ Import FormsModule
+import { NgIf } from '@angular/common';         // ✅ Import NgIf for *ngIf
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-create-employee',
-  imports: [
-    FormsModule,
-    NgIf
-  ],
+  standalone: true,
+  imports: [FormsModule, NgIf],   // ✅ Add FormsModule + NgIf here
   templateUrl: './create-employee.component.html'
 })
 export class CreateEmployeeComponent {
@@ -19,15 +16,20 @@ export class CreateEmployeeComponent {
   password = '';
   message = '';
 
-  constructor(protected authService: AuthServiceService) { }
+  constructor(public authService: AuthServiceService) {}
 
   createEmployee() {
     const role = 'EMPLOYE';
-
-    let employee = {name: this.name, prenom: this.prenom, username: this.username, password: this.password, role};
+    const employee = {
+      name: this.name,
+      prenom: this.prenom,
+      username: this.username,
+      password: this.password,
+      role
+    };
 
     this.authService.registerEmployee(employee).subscribe({
-      next: res => this.message = res,
+      next: res => this.message = res.message,
       error: err => this.message = err.error
     });
   }

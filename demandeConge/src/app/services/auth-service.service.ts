@@ -13,14 +13,16 @@ export class AuthServiceService {
   constructor(private http: HttpClient) {}
 
   login(data: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   register(user: RegisterRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  // Protected employee registration
+  // Corrected: registerEmployee now calls /register with Manager token
   registerEmployee(employee: {
     password: string;
     role: string;
@@ -32,11 +34,11 @@ export class AuthServiceService {
     if (!token) throw new Error('No JWT token found');
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${this.apiUrl}/register-employee`, employee, { headers });
+    return this.http.post(`${this.apiUrl}/register`, employee, { headers });
   }
 
   saveToken(token: string) { localStorage.setItem('token', token); }
@@ -47,4 +49,10 @@ export class AuthServiceService {
     return role === 'MANAGER' || role === 'EMPLOYE' ? role : null;
   }
   isAuthenticated(): boolean { return this.getToken() !== null; }
+
+  clearAuth() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('employeId');
+  }
 }

@@ -1,17 +1,17 @@
 package com.example.systemedemandecange.Configiration;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -24,8 +24,9 @@ public class JwtUtils {
     @Value("${app.expiration-time}")
     private long expirationTime;
 
-    public String generateJwtToken(String username) {
+    public String generateJwtToken(String username, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles); // include roles in JWT
         return createToken(claims, username);
     }
 
@@ -33,7 +34,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
@@ -61,6 +62,11 @@ public class JwtUtils {
         return extractClaims(token, Claims::getSubject);
     }
 
+    public List<String> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        return (List<String>) claims.get("roles");
+    }
+
     private <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -71,9 +77,5 @@ public class JwtUtils {
                 .setSigningKey(getSignKey())
                 .parseClaimsJws(token)
                 .getBody();
-    }
-    public Authentication getAuthentication(String token) {
-        String username = extractUsername(token);
-        return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
     }
 }
