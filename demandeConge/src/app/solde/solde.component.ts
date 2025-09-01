@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
-import {SoldeConge, SoldeCongeService} from '../services/solde.service';
-import {FormsModule} from '@angular/forms';
-import {NgForOf, NgIf} from '@angular/common';
+import { SoldeConge, SoldeCongeService } from '../services/solde.service';
+import { FormsModule } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-solde',
-  imports: [
-    FormsModule,
-    NgForOf,
-    NgIf
-  ],
+  standalone: true,
+  imports: [FormsModule, NgForOf, NgIf],
   templateUrl: './solde.component.html',
-  styleUrl: './solde.component.css'
+  styleUrls: ['./solde.component.css']
 })
 export class SoldeComponent {
   employeId: number = 0;
   soldes: SoldeConge[] = [];
   loading = false;
   error = '';
+  initLoading = false;
+  initMessage = '';
+  initError = '';
 
   constructor(private soldeCongeService: SoldeCongeService) {}
 
+  // Récupérer le solde pour un employé
   getSolde() {
     this.loading = true;
     this.error = '';
@@ -36,4 +37,21 @@ export class SoldeComponent {
     });
   }
 
+  // Initialiser tous les soldes
+  initialiserSoldes() {
+    this.initLoading = true;
+    this.initMessage = '';
+    this.initError = '';
+    this.soldeCongeService.initialiserTousLesSoldes().subscribe({
+      next: (res: any) => {
+        this.initMessage = res; // "Soldes initialisés pour tous les employés."
+        this.initLoading = false;
+      },
+      error: (err) => {
+        this.initError = 'Erreur lors de l’initialisation des soldes.';
+        this.initLoading = false;
+        console.error(err);
+      }
+    });
+  }
 }

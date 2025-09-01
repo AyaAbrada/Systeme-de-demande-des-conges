@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AuthServiceService} from '../services/auth-service.service';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {RegisterRequest} from '../model/register-request.model';
 
 @Component({
   selector: 'app-create-employee',
@@ -22,7 +23,8 @@ export class CreateEmployeeComponent {
 
   createEmployee() {
     const role = 'EMPLOYE';
-    const employee = { name: this.name, prenom: this.prenom, username: this.username, password: this.password, role };
+
+    let employee = {name: this.name, prenom: this.prenom, username: this.username, password: this.password, role};
 
     this.authService.registerEmployee(employee).subscribe({
       next: res => this.message = res,

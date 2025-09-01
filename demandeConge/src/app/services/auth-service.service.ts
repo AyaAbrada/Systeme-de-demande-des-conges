@@ -21,7 +21,13 @@ export class AuthServiceService {
   }
 
   // Protected employee registration
-  registerEmployee(employee: RegisterRequest): Observable<any> {
+  registerEmployee(employee: {
+    password: string;
+    role: string;
+    name: string;
+    prenom: string;
+    username: string
+  }): Observable<any> {
     const token = this.getToken();
     if (!token) throw new Error('No JWT token found');
 

@@ -2,7 +2,16 @@
   <div class="card shadow-lg p-4 rounded">
     <h2 class="mb-4 text-center text-primary">🔍 Consulter le solde de congé</h2>
 
-    <!-- Input + bouton -->
+    <!-- Bouton Initialiser tous les soldes -->
+    <div class="text-center mb-4">
+      <button class="btn btn-success" (click)="initialiserSoldes()" [disabled]="initLoading">
+        {{ initLoading ? 'Initialisation...' : 'Initialiser tous les soldes' }}
+      </button>
+      <div *ngIf="initMessage" class="alert alert-success mt-2">{{ initMessage }}</div>
+      <div *ngIf="initError" class="alert alert-danger mt-2">{{ initError }}</div>
+    </div>
+
+    <!-- Input + bouton pour consulter un employé -->
     <div class="input-group mb-3">
       <input type="number" [(ngModel)]="employeId" class="form-control" placeholder="Entrer l'ID de l'employé">
       <button class="btn btn-primary" (click)="getSolde()">Rechercher</button>
