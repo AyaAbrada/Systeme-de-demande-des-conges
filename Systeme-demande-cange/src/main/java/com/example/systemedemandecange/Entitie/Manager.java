@@ -1,6 +1,8 @@
 package com.example.systemedemandecange.Entitie;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,25 +12,19 @@ public class Manager extends User {
     @OneToMany
     @JoinColumn(name = "manager_id")
     @JsonManagedReference
-    private List<Employe> equipe;
+    private List<Employe> equipe = new ArrayList<>();
 
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<DemandeConge> demandesAValider;
+    private List<DemandeConge> demandesAValider = new ArrayList<>();
 
     public Manager() {}
 
-    public Manager(String name, String prenom, String email, String password,
-                   List<Employe> equipe, List<DemandeConge> demandesAValider) {
-        super(name, prenom, email, password);
-        this.equipe = equipe;
-        this.demandesAValider = demandesAValider;
+    public Manager(String name, String prenom, String username, String password) {
+        super(name, prenom, username, password);
     }
 
-
-    public Manager(String martin, String paul, String martin1, String number) {
-    }
-
+    // Getters & Setters
     public List<Employe> getEquipe() { return equipe; }
     public void setEquipe(List<Employe> equipe) { this.equipe = equipe; }
 

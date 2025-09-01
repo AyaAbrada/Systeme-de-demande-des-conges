@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HistoriqueService } from '../services/historique.service';
 import { CommonModule } from '@angular/common';
-import {DemandeConge} from '../model/demande-conge.model';
+import { DemandeConge } from '../model/demande-conge.model';
 
 @Component({
   selector: 'app-historique',
@@ -25,7 +25,7 @@ export class HistoriqueComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = 'Impossible de charger les demandes.';
+        this.errorMessage = 'Impossible de charger les demandes. Vérifiez que vous êtes connecté.';
         this.loading = false;
       }
     });

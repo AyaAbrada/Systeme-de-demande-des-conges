@@ -2,6 +2,7 @@ package com.example.systemedemandecange.Entitie;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,25 +11,19 @@ public class Employe extends User {
 
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<DemandeConge> demandes;
+    private List<DemandeConge> demandes = new ArrayList<>();
 
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<SoldeConge> soldes;
+    private List<SoldeConge> soldes = new ArrayList<>();
 
     public Employe() {}
 
-    public Employe(String name, String prenom, String username, String password,
-                   List<DemandeConge> demandes, List<SoldeConge> soldes) {
+    public Employe(String name, String prenom, String username, String password) {
         super(name, prenom, username, password);
-        this.demandes = demandes;
-        this.soldes = soldes;
     }
 
-    public Employe(String dupont, String jean, String dupont1, String number) {
-    }
-
-    // Getters & Setters
+    // Getters & setters
     public List<DemandeConge> getDemandes() { return demandes; }
     public void setDemandes(List<DemandeConge> demandes) { this.demandes = demandes; }
 

@@ -1,12 +1,11 @@
 package com.example.systemedemandecange.Service;
+
 import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Entitie.User;
 import com.example.systemedemandecange.Repositorie.UserRepositorie;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -23,22 +22,14 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepositorie.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
+        if (user == null) throw new UsernameNotFoundException("User not found");
 
-        String role = "";
-        if (user instanceof Manager) {
-            role = "MANAGER";
-        } else if (user instanceof Employe) {
-            role = "EMPLOYE";
-        }
+        String role = (user instanceof Manager) ? "MANAGER" : "EMPLOYE";
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role)) // Spring attend "ROLE_..."
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role))
         );
     }
-
 }

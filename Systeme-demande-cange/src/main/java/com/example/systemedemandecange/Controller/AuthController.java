@@ -12,9 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200") // Angular frontend
 public class AuthController {
 
     private final UserRepositorie userRepositorie;
@@ -32,56 +34,66 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
+    /**
+     * Registration endpoint
+     * - EMPLOYE can only be created by a manager
+     * - MANAGER can self-register (or you can restrict it)
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request,
                                           @RequestHeader(value = "Authorization", required = false) String authHeader) {
         try {
-            // Seul un manager peut créer un employé
+            // EMPLOYE creation requires manager token
             if ("EMPLOYE".equalsIgnoreCase(request.getRole())) {
-                if (authHeader == null) {
-                    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token requis pour créer un employé");
-                }
+                if (authHeader == null || !authHeader.startsWith("Bearer "))
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body(Map.of("error", "Token requis pour créer un employé"));
+
                 String token = authHeader.replace("Bearer ", "");
                 String currentUsername = jwtUtils.extractUsername(token);
                 User currentUser = userRepositorie.findByUsername(currentUsername);
-                if (!(currentUser instanceof Manager)) {
+
+                if (!(currentUser instanceof Manager))
                     return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                            .body("Seul un manager peut créer un compte employé");
-                }
+                            .body(Map.of("error", "Seul un manager peut créer un employé"));
             }
 
-            // Vérification username unique
-            if (userRepositorie.findByUsername(request.getUsername()) != null) {
-                return ResponseEntity.badRequest().body("Username already exists");
-            }
+            // Username must be unique
+            if (userRepositorie.findByUsername(request.getUsername()) != null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Username déjà utilisé"));
 
-            // Encodage mot de passe
+            // Encode password
             String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-            User newUser;
-            if ("EMPLOYE".equalsIgnoreCase(request.getRole())) {
-                newUser = new Employe(request.getName(), request.getPrenom(),
-                        request.getUsername(), encodedPassword, null, null);
-            } else if ("MANAGER".equalsIgnoreCase(request.getRole())) {
-                newUser = new Manager(request.getName(), request.getPrenom(),
-                        request.getUsername(), encodedPassword, null, null);
-            } else {
-                return ResponseEntity.badRequest().body("Invalid role specified");
-            }
+            // Create user based on role
+            User newUser = "EMPLOYE".equalsIgnoreCase(request.getRole())
+                    ? new Employe(request.getName(), request.getPrenom(), request.getUsername(), encodedPassword)
+                    : new Manager(request.getName(), request.getPrenom(), request.getUsername(), encodedPassword);
 
             userRepositorie.save(newUser);
-            return ResponseEntity.ok("Utilisateur créé avec succès");
+
+            // Return JSON response
+            return ResponseEntity.ok(Map.of(
+                    "message", "Utilisateur créé avec succès",
+                    "username", newUser.getUsername(),
+                    "role", request.getRole()
+            ));
 
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la création du compte: " + ex.getMessage());
+                    .body(Map.of("error", "Erreur serveur: " + ex.getMessage()));
         }
     }
 
+
+    /**
+     * Login endpoint
+     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
-            // Authentification Spring Security
+            // Spring Security authentication
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),
@@ -89,24 +101,12 @@ public class AuthController {
                     )
             );
 
-            // Récupération utilisateur
             User user = userRepositorie.findByUsername(loginRequest.getUsername());
-            if (user == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur introuvable");
-            }
+            if (user == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur introuvable");
 
-            // Génération JWT
             String token = jwtUtils.generateJwtToken(user.getUsername());
-
-            // Déterminer rôle
-            String role;
-            Long employeId = null;
-            if (user instanceof Manager) {
-                role = "MANAGER";
-            } else {
-                role = "EMPLOYE";
-                employeId = user.getId();
-            }
+            String role = (user instanceof Manager) ? "MANAGER" : "EMPLOYE";
+            Long employeId = (user instanceof Employe) ? user.getId() : null;
 
             return ResponseEntity.ok(new LoginResponse(token, role, employeId));
 

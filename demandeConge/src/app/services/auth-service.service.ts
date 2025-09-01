@@ -1,54 +1,44 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {LoginRequest, LoginResponse, User} from '../model/user.model';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { LoginRequest, LoginResponse } from '../model/user.model';
+import { RegisterRequest } from '../model/register-request.model';
 
-@Injectable({
-  providedIn: 'root'
-})
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
   private apiUrl = 'http://localhost:8083/api/v1/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  login(date: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, date);
+  login(data: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data);
   }
 
-  register(user: User): Observable<any> {
+  register(user: RegisterRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
+  // Protected employee registration
+  registerEmployee(employee: RegisterRequest): Observable<any> {
+    const token = this.getToken();
+    if (!token) throw new Error('No JWT token found');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(`${this.apiUrl}/register-employee`, employee, { headers });
   }
 
-  saveRole(role: 'MANAGER' | 'EMPLOYE'): void {
-    localStorage.setItem('role', role);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
+  saveToken(token: string) { localStorage.setItem('token', token); }
+  saveRole(role: 'MANAGER' | 'EMPLOYE') { localStorage.setItem('role', role); }
+  getToken(): string | null { return localStorage.getItem('token'); }
   getRole(): 'MANAGER' | 'EMPLOYE' | null {
     const role = localStorage.getItem('role');
-    if (role === 'MANAGER' || role === 'EMPLOYE') {
-      return role;
-    }
-    return null;
+    return role === 'MANAGER' || role === 'EMPLOYE' ? role : null;
   }
-
-  isAuthenticated(): boolean {
-    return this.getToken() !== null;
-  }
-
-  registerEmployee(employee: any): Observable<any> {
-    const token = this.getToken(); // récupérer token stocké
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.apiUrl}/register`, employee, { headers });
-  }
+  isAuthenticated(): boolean { return this.getToken() !== null; }
 }

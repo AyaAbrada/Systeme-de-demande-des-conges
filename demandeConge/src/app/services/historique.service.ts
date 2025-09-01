@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {DemandeConge} from '../model/demande-conge.model';
+import { DemandeConge } from '../model/demande-conge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class HistoriqueService {
   constructor(private http: HttpClient) {}
 
   getAllDemandes(): Observable<DemandeConge[]> {
-    return this.http.get<DemandeConge[]>(this.apiUrl);
+    const token = localStorage.getItem('token'); // JWT token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<DemandeConge[]>(this.apiUrl, { headers });
   }
 }
