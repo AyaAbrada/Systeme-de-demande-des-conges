@@ -10,6 +10,7 @@ import {SoldeComponent} from './solde/solde.component';
 import {HistoriqueEmployeComponent} from './historique-employe/historique-employe.component';
 import {SoldeEmployeComponent} from './solde-employe/solde-employe.component';
 import {CreateEmployeeComponent} from './create-employee/create-employee.component';
+import {ProposComponent} from './propos/propos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   {path: "demande-form", component: DemandeFormComponent},
   {path: "solde", component: SoldeComponent},
   {path: "solde-employe", component: SoldeEmployeComponent},
-  {path: "create-employee", component: CreateEmployeeComponent}
+  {path: "create-employee", component: CreateEmployeeComponent},
+  {path: "propos", component: ProposComponent}
 
 ];

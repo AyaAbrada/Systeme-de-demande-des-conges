@@ -1,0 +1,90 @@
+.about-card {
+  background: linear-gradient(135deg, #787878, #2e2e2e);
+  border: none;
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.text-modern {
+  background: linear-gradient(90deg, #d8aaff, #c480ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+h3.text-modern:hover {
+  background: linear-gradient(90deg, #c480ff, #a64dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(5px);
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1e1b2f;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card-text:hover {
+  background: linear-gradient(90deg, #c480ff, #a64dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(5px);
+}
+
+.list-group-item {
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.list-group-item i {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.list-group-item:hover {
+  color: #c480ff;
+  transform: translateX(5px);
+}
+
+.about-highlight {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f3e6ff, #e0bfff);
+  color: #6b21a8;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-highlight:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.8rem;
+  }
+
+  h3.text-modern {
+    font-size: 1.2rem;
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+}
