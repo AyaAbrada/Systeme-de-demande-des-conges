@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-demande-form',
   templateUrl: './demande-form.component.html',
-  imports: [
-    ReactiveFormsModule
-  ],
+  imports: [ReactiveFormsModule],
   styleUrls: ['./demande-form.component.css']
 })
 export class DemandeFormComponent implements OnInit {
   demandeForm!: FormGroup;
+  employeId!: number;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Initialisation du formulaire avec les champs nécessaires
+    // Récupérer l'id de l'employé depuis localStorage
+    const storedId = localStorage.getItem('employeId');
+    if (!storedId) {
+      alert("Employé non connecté !");
+      return;
+    }
+    this.employeId = Number(storedId);
+
+    // Initialisation du formulaire
     this.demandeForm = this.fb.group({
-      employeId: ['', Validators.required],
-      managerId: ['', Validators.required],
+      employeId: [this.employeId, Validators.required],
+      managerId: [1, Validators.required], // Manager fixe = 1
       typeConge: ['', Validators.required],
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required]
@@ -34,12 +41,15 @@ export class DemandeFormComponent implements OnInit {
       this.http.post("http://localhost:8083/api/demandes", demande).subscribe({
         next: (res) => {
           console.log("Succès:", res);
-          alert("Demande envoyée avec succès ");
-          this.demandeForm.reset();
+          alert("Demande envoyée avec succès !");
+          this.demandeForm.reset({
+            employeId: this.employeId,
+            managerId: 1
+          });
         },
         error: (err) => {
           console.error("Erreur:", err);
-          alert("Erreur lors de l'envoi ");
+          alert("Erreur lors de l'envoi de la demande !");
         }
       });
     } else {
