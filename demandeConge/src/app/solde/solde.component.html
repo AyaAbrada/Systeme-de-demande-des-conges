@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="card shadow-lg p-4 rounded">
-    <h2 class="mb-4 text-center text-primary">🔍 Consulter le solde de congé</h2>
+    <h2 class="mb-4 text-center text-primary"> Consulter le solde de congé</h2>
 
     <!-- Bouton Initialiser tous les soldes -->
     <div class="text-center mb-4">
@@ -11,9 +11,9 @@
       <div *ngIf="initError" class="alert alert-danger mt-2">{{ initError }}</div>
     </div>
 
-    <!-- Input + bouton pour consulter un employé -->
+    <!-- Input + bouton pour rechercher par username -->
     <div class="input-group mb-3">
-      <input type="number" [(ngModel)]="employeId" class="form-control" placeholder="Entrer l'ID de l'employé">
+      <input type="text" [(ngModel)]="username" class="form-control" placeholder="Entrer le username">
       <button class="btn btn-primary" (click)="getSolde()">Rechercher</button>
     </div>
 
@@ -27,7 +27,7 @@
       {{ error }}
     </div>
 
-    <!-- Tableau -->
+    <!-- Tableau des soldes -->
     <table *ngIf="soldes.length > 0" class="table table-striped table-hover mt-4 text-center align-middle">
       <thead class="table-dark">
       <tr>

@@ -11,7 +11,7 @@ import { NgForOf, NgIf } from '@angular/common';
   styleUrls: ['./solde.component.css']
 })
 export class SoldeComponent {
-  employeId: number = 0;
+  username: string = '';
   soldes: SoldeConge[] = [];
   loading = false;
   error = '';
@@ -21,13 +21,21 @@ export class SoldeComponent {
 
   constructor(private soldeCongeService: SoldeCongeService) {}
 
-  // Récupérer le solde pour un employé
+  // Récupérer le solde pour un username
   getSolde() {
+    if (!this.username) {
+      this.error = 'Veuillez entrer le username';
+      return;
+    }
+
     this.loading = true;
     this.error = '';
-    this.soldeCongeService.getSoldeParEmploye(this.employeId).subscribe({
+    this.soldeCongeService.getSoldeParUsername(this.username).subscribe({
       next: (data) => {
         this.soldes = data;
+        if (data.length === 0) {
+          this.error = 'Aucun solde trouvé pour ce username';
+        }
         this.loading = false;
       },
       error: () => {
@@ -43,8 +51,8 @@ export class SoldeComponent {
     this.initMessage = '';
     this.initError = '';
     this.soldeCongeService.initialiserTousLesSoldes().subscribe({
-      next: (res: any) => {
-        this.initMessage = res; // "Soldes initialisés pour tous les employés."
+      next: (res) => {
+        this.initMessage = res;
         this.initLoading = false;
       },
       error: (err) => {

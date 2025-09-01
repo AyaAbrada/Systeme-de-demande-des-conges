@@ -27,4 +27,9 @@ export class SoldeCongeService {
     // @ts-ignore
     return this.http.post(`${this.apiUrl}/init`, {});
   }
+
+  getSoldeParUsername(username: string): Observable<SoldeConge[]> {
+    return this.http.get<SoldeConge[]>(`${this.apiUrl}/username/${username}`);
+  }
+
 }

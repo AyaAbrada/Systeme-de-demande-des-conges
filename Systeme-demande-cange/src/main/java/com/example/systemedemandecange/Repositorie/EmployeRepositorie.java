@@ -3,4 +3,7 @@ import com.example.systemedemandecange.Entitie.Employe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmployeRepositorie extends JpaRepository<Employe, Long> {
+
+    Employe findByUsername(String username);
+
 }

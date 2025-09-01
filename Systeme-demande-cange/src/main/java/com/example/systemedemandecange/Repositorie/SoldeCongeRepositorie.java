@@ -14,4 +14,6 @@ public interface SoldeCongeRepositorie extends JpaRepository<SoldeConge, Long> {
     SoldeConge findByEmployeAndTypeConge(Employe employe, TypeConge typeConge);
 
     List<SoldeConge> findByEmployeId(Long employeId);
+
+
 }

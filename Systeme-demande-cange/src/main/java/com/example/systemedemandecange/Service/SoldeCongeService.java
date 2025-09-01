@@ -6,6 +6,8 @@ import com.example.systemedemandecange.Repositorie.EmployeRepositorie;
 import com.example.systemedemandecange.Repositorie.SoldeCongeRepositorie;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,4 +60,11 @@ public class SoldeCongeService {
 
         return false;
     }
+    public List<SoldeConge> getSoldeParUsername(String username) {
+        Employe employe = employeRepository.findByUsername(username);
+        if (employe == null) return Collections.emptyList(); // pas trouvé
+        return soldeCongeRepository.findByEmployeId(employe.getId());
+    }
+
+
 }
