@@ -35,7 +35,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/register-employee").hasRole("MANAGER") // restricted to MANAGER
+                        .requestMatchers("/api/v1/auth/register-employee" , "/api/demandes" , "/api/solde").hasRole("MANAGER")
+                        .requestMatchers("/api/demandes" , "/api/solde").hasRole("EMPLOYE")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

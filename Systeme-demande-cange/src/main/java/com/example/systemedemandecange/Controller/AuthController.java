@@ -4,6 +4,8 @@ import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Entitie.User;
 import com.example.systemedemandecange.Repositorie.UserRepositorie;
+import com.example.systemedemandecange.Service.TokenBlacklistService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,15 +25,18 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final TokenBlacklistService tokenBlacklistService;
+
 
     public AuthController(UserRepositorie userRepositorie,
                           PasswordEncoder passwordEncoder,
                           AuthenticationManager authenticationManager,
-                          JwtUtils jwtUtils) {
+                          JwtUtils jwtUtils, TokenBlacklistService tokenBlacklistService) {
         this.userRepositorie = userRepositorie;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @PostMapping("/register")
@@ -111,5 +116,14 @@ public class AuthController {
                     .body("Nom d’utilisateur ou mot de passe incorrect");
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        tokenBlacklistService.add(token);
+        return ResponseEntity.ok("Déconnecté avec succès");
+    }
+
+
 
 }

@@ -32,14 +32,11 @@ public class DemandeCongeController {
         this.employeService = employeService;
     }
 
-    //  Créer une demande avec DTO de requête
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> create(@RequestBody DemandeCongeRequest request) {
-        // Récupérer les entités existantes
         Employe employe = employeService.findById(request.getEmployeId());
         Manager manager = managerService.findById(request.getManagerId());
 
-        // Construire la demande
         DemandeConge demande = new DemandeConge();
         demande.setEmploye(employe);
         demande.setManager(manager);
@@ -47,18 +44,15 @@ public class DemandeCongeController {
         demande.setDateDebut(LocalDate.parse(request.getDateDebut()));
         demande.setDateFin(LocalDate.parse(request.getDateFin()));
 
-        // Sauvegarder et retourner le DTO
         DemandeConge saved = demandeCongeService.create(demande);
         return ResponseEntity.ok(demandeCongeService.convertToDTO(saved));
     }
 
-    //  Récupérer toutes les demandes
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<DemandeCongeDTO> getAll() {
         return demandeCongeService.getAllDTOs();
     }
 
-    //  Récupérer une demande par ID
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeCongeDTO> getById(@PathVariable Long id) {
         return demandeCongeService.getById(id)
@@ -67,13 +61,11 @@ public class DemandeCongeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //  Mettre à jour une demande
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DemandeConge> updateDemande(@RequestBody DemandeConge demande) {
         return ResponseEntity.ok(demandeCongeService.updatedemande(demande));
     }
 
-    //  Supprimer une demande
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         demandeCongeService.delete(id);

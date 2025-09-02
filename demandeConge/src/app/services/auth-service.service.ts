@@ -54,4 +54,30 @@ export class AuthServiceService {
     localStorage.removeItem('role');
     localStorage.removeItem('employeId');
   }
+
+  logout(): Observable<any> {
+    const token = this.getToken();
+    if (!token) {
+      this.clearAuth();
+      return new Observable(observer => {
+        observer.next({ message: 'Déconnecté localement' });
+        observer.complete();
+      });
+    }
+
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return new Observable(observer => {
+      this.http.post(`${this.apiUrl}/logout`, {}, { headers }).subscribe({
+        next: res => {
+          this.clearAuth();
+          observer.next(res);
+          observer.complete();
+        },
+        error: err => {
+          this.clearAuth();
+          observer.error(err);
+        }
+      });
+    });
+  }
 }
