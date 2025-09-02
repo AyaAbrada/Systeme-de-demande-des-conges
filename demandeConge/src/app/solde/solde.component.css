@@ -74,9 +74,22 @@ button.btn:hover, .btn-primary:hover, .btn-success:hover {
   padding: 1rem 1.5rem;
   font-weight: 500;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-  background: #fff3cd;
-  color: #856404;
   text-align: center;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.alert-info {
+  background: #cce5ff;
+  color: #004085;
 }
 
 .table {

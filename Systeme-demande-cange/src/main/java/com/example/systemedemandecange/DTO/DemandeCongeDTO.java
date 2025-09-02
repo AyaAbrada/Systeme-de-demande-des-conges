@@ -1,8 +1,6 @@
 package com.example.systemedemandecange.DTO;
-
 import com.example.systemedemandecange.Entitie.Statut;
 import com.example.systemedemandecange.Entitie.TypeConge;
-
 import java.time.LocalDate;
 
 public class DemandeCongeDTO {

@@ -50,14 +50,16 @@ export class SoldeComponent {
     this.initError = '';
     this.soldeCongeService.initialiserTousLesSoldes().subscribe({
       next: (res) => {
-        this.initMessage = res;
+        this.initMessage = " Soldes initialisés avec succès";
         this.initLoading = false;
+
       },
       error: (err) => {
-        this.initError = 'Erreur lors de l’initialisation des soldes.';
+        this.initError = ' Erreur lors de l’initialisation des soldes.';
         this.initLoading = false;
         console.error(err);
       }
     });
   }
+
 }

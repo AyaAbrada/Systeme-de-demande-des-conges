@@ -9,7 +9,6 @@ import { AuthServiceService } from '../services/auth-service.service';
   imports: [FormsModule, NgIf],
   templateUrl: './create-employee.component.html',
   styleUrl: './create-employee.component.css'
-
 })
 export class CreateEmployeeComponent {
   name = '';
@@ -17,6 +16,7 @@ export class CreateEmployeeComponent {
   username = '';
   password = '';
   message = '';
+  isError = false;
 
   constructor(public authService: AuthServiceService) {}
 
@@ -31,8 +31,16 @@ export class CreateEmployeeComponent {
     };
 
     this.authService.registerEmployee(employee).subscribe({
-      next: res => this.message = res.message,
-      error: err => this.message = err.error
+      next: res => {
+        this.message = " Employé créé avec succès";
+        this.isError = false;
+
+      },
+      error: err => {
+        this.message = " Erreur lors de la création";
+        this.isError = true;
+
+      }
     });
   }
 }

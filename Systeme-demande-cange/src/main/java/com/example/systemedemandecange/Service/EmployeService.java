@@ -1,9 +1,7 @@
 package com.example.systemedemandecange.Service;
-
 import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Repositorie.EmployeRepositorie;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -15,7 +13,6 @@ public class EmployeService {
         this.employeRepository = employeRepository;
     }
 
-    // Récupérer un employé par ID
     public Employe findById(Long id) {
         Optional<Employe> employeOpt = employeRepository.findById(id);
         if (employeOpt.isPresent()) {

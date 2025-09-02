@@ -6,12 +6,22 @@
       <button class="btn" (click)="initialiserSoldes()" [disabled]="initLoading">
         {{ initLoading ? 'Initialisation...' : 'Initialiser tous les soldes' }}
       </button>
-      <div *ngIf="initMessage" class="alert alert-success mt-2">{{ initMessage }}</div>
-      <div *ngIf="initError" class="alert alert-danger mt-2">{{ initError }}</div>
+
+      <!-- ✅ Message succès en vert -->
+      <div *ngIf="initMessage" class="alert alert-success mt-2 text-center">
+        {{ initMessage }}
+      </div>
+
+      <!-- ❌ Message erreur en rouge -->
+      <div *ngIf="initError" class="alert alert-danger mt-2 text-center">
+        {{ initError }}
+      </div>
     </div>
 
+
+
     <div class="input-group mb-3">
-      <input type="text" [(ngModel)]="username" class="form-control" placeholder="Entrer le username">
+      <input type="text" [(ngModel)]="username" class="form-control" placeholder="Entrer le Nom d'utilisateur">
       <button class="btn" (click)="getSolde()">Rechercher</button>
     </div>
 

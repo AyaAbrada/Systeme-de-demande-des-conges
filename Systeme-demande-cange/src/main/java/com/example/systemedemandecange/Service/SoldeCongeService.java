@@ -6,7 +6,6 @@ import com.example.systemedemandecange.Repositorie.EmployeRepositorie;
 import com.example.systemedemandecange.Repositorie.SoldeCongeRepositorie;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,6 @@ public class SoldeCongeService {
         }
     }
 
-    // Obtenir solde d’un employé
     public List<SoldeConge> getSoldeParEmploye(Long employeId) {
         return soldeCongeRepository.findByEmployeId(employeId);
     }

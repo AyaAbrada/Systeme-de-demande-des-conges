@@ -1,5 +1,4 @@
 package com.example.systemedemandecange.Controller;
-
 import com.example.systemedemandecange.Configiration.JwtUtils;
 import com.example.systemedemandecange.Entitie.Employe;
 import com.example.systemedemandecange.Entitie.Manager;
@@ -102,7 +101,7 @@ public class AuthController {
             Long employeId = (user instanceof Employe) ? user.getId() : null;
 
             // Generate token with roles
-            List<String> roles = List.of(role); // wrap role in a list
+            List<String> roles = List.of(role);
             String token = jwtUtils.generateJwtToken(user.getUsername(), roles);
 
             return ResponseEntity.ok(new LoginResponse(token, role, employeId));

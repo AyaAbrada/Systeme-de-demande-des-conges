@@ -1,6 +1,13 @@
 <div class="container form-card my-5">
   <h2 class="fw-bold text-modern">Demander un congé</h2>
 
+  <div *ngIf="successMessage" class="alert alert-success text-center">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
   <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="typeConge">Type de congé</label>
@@ -21,7 +28,7 @@
       <input id="dateFin" type="date" formControlName="dateFin" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-gradient" [disabled]="demandeForm.invalid">
+    <button type="submit" class="btn btn-gradient mt-3" [disabled]="demandeForm.invalid">
       Envoyer
     </button>
   </form>

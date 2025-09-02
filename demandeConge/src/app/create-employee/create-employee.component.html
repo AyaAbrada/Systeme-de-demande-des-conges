@@ -29,8 +29,12 @@
       </div>
 
       <div class="col-12 mt-3">
-        <p class="text-success text-center" *ngIf="message">{{ message }}</p>
+        <p class="alert alert-success text-center" *ngIf="message && !isError">{{ message }}</p>
+
+        <p class="alert alert-danger text-center" *ngIf="message && isError">{{ message }}</p>
       </div>
+
+
 
     </form>
   </div>
