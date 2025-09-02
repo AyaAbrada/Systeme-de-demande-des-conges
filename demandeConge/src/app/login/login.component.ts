@@ -19,7 +19,6 @@ export class LoginComponent {
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   login() {
-    // Clear old tokens before login
     this.authService.clearAuth();
 
     this.authService.login(this.user).subscribe({
@@ -28,7 +27,6 @@ export class LoginComponent {
         this.authService.saveRole(res.role);
         if (res.employeId) localStorage.setItem('employeId', res.employeId.toString());
 
-        // Redirect based on role
         if (res.role === 'MANAGER') this.router.navigate(['/dashboard-manager']);
         else if (res.role === 'EMPLOYE') this.router.navigate(['/dashboard-employe']);
         else this.router.navigate(['/dashboard']);

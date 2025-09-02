@@ -21,7 +21,6 @@ export class SoldeComponent {
 
   constructor(private soldeCongeService: SoldeCongeService) {}
 
-  // Récupérer le solde pour un username
   getSolde() {
     if (!this.username) {
       this.error = 'Veuillez entrer le username';
@@ -45,7 +44,6 @@ export class SoldeComponent {
     });
   }
 
-  // Initialiser tous les soldes
   initialiserSoldes() {
     this.initLoading = true;
     this.initMessage = '';

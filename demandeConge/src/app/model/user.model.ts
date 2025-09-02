@@ -1,7 +1,7 @@
 export interface LoginResponse {
   token: string;
   role: 'MANAGER' | 'EMPLOYE';
-  employeId?: number; // 👈 ajouté pour correspondre au backend
+  employeId?: number;
 }
 
 export interface User {

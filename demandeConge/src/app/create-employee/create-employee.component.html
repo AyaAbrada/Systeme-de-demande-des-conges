@@ -36,7 +36,6 @@
   </div>
 </div>
 
-<!-- Bloc pour utilisateurs non-managers -->
 <div *ngIf="authService.getRole() !== 'MANAGER'" class="container mt-5">
   <div class="alert alert-warning text-center">
     <strong>{{ authService.getRole() }}</strong> - Vous n’êtes pas autorisé à créer des employés.

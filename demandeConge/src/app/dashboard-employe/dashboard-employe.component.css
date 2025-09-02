@@ -1,87 +1,75 @@
-/* ---- Général ---- */
 body {
   background: #f4f6f9;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ---- Titres ---- */
-h2 {
-  color: #2c3e50;
+.text-modern {
+  background: linear-gradient(90deg, #d8aaff, #c480ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 700;
 }
 
-p.text-muted {
-  font-size: 1.1rem;
+.text-modern:hover {
+  background: linear-gradient(90deg, #c480ff, #a64dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(5px);
 }
 
-/* ---- Cards ---- */
-.card {
+.employee-card {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
   border: none;
-  border-radius: 15px;
-  transition: all 0.3s ease-in-out;
-  background: white;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
+.employee-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* ---- Icônes ---- */
-.card i {
+.employee-card i {
   font-size: 3rem;
   margin-bottom: 15px;
   transition: transform 0.3s ease-in-out;
 }
 
-.card:hover i {
+.employee-card:hover i {
   transform: scale(1.2);
 }
 
-/* ---- Titres dans cards ---- */
 .card-title {
   font-weight: 600;
-  color: #34495e;
-  margin-top: 10px;
+  color: #2c3e50;
 }
 
-/* ---- Boutons ---- */
-.card .btn {
-  margin-top: 10px;
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  transition: color 0.2s ease;
+}
+
+.employee-card:hover .card-text {
+  color: #6c2eb9;
+}
+
+.btn-gradient {
+  display: inline-block;
+  padding: 8px 20px;
   border-radius: 30px;
-  padding: 8px 18px;
   font-weight: 500;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(90deg, #a64dff, #c480ff);
+  border: none;
   transition: all 0.3s ease;
 }
 
-.card .btn:hover {
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #c480ff, #d8aaff);
   transform: scale(1.05);
-}
-
-/* ---- Couleurs personnalisées ---- */
-.btn-primary {
-  background: #007bff;
-  border: none;
-}
-.btn-primary:hover {
-  background: #0056b3;
-}
-
-.btn-success {
-  background: #28a745;
-  border: none;
-}
-.btn-success:hover {
-  background: #1e7e34;
-}
-
-.btn-warning {
-  background: #ffc107;
-  border: none;
-  color: #212529;
-}
-.btn-warning:hover {
-  background: #e0a800;
   color: white;
 }

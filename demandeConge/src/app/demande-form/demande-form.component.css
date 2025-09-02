@@ -1,21 +1,80 @@
-.container {
+.form-card {
   max-width: 500px;
   margin: 20px auto;
-  padding: 20px;
-  border-radius: 10px;
-  background: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 30px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-h2 {
+.form-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.text-modern {
+  background: linear-gradient(90deg, #d8aaff, #c480ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.text-modern:hover {
+  background: linear-gradient(90deg, #c480ff, #a64dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(5px);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-button {
+label {
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control {
   width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #a64dff;
+  box-shadow: 0 0 6px rgba(166, 77, 255, 0.4);
+  outline: none;
+}
+
+.btn-gradient {
+  display: inline-block;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(90deg, #a64dff, #c480ff);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #c480ff, #d8aaff);
+  transform: scale(1.05);
+  color: white;
+}
+
+.btn-gradient:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }

@@ -1,40 +1,54 @@
-<div class="container mt-4">
-  <h2>Historique des demandes</h2>
+<div class="container my-5">
+  <h2 class="fw-bold text-modern">Historique des demandes</h2>
 
-  <div *ngIf="loading" class="alert alert-info">
+  <div *ngIf="loading" class="alert alert-info mt-3">
     Chargement des demandes...
   </div>
 
-  <div *ngIf="errorMessage && !loading" class="alert alert-danger">
+  <div *ngIf="errorMessage && !loading" class="alert alert-danger mt-3">
     {{ errorMessage }}
   </div>
 
-  <table *ngIf="!loading && demandes.length > 0" class="table table-bordered mt-3">
-    <thead>
-    <tr>
-      <th>Type</th>
-      <th>Date début</th>
-      <th>Date fin</th>
-      <th>Date soumission</th>
-      <th>Date traitement</th>
-      <th>Statut</th>
-      <th>Motif Reçu</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let demande of demandes">
-      <td>{{ demande.typeConge }}</td>
-      <td>{{ demande.dateDebut | date:'dd/MM/yyyy' }}</td>
-      <td>{{ demande.dateFin | date:'dd/MM/yyyy' }}</td>
-      <td>{{ demande.dateSoumission | date:'dd/MM/yyyy' }}</td>
-      <td>{{ demande.dateTraitement ? (demande.dateTraitement | date:'dd/MM/yyyy') : 'En attente' }}</td>
-      <td>{{ demande.statut }}</td>
-      <td>{{ demande.motifRecu || '-' }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="card history-card mt-4" *ngIf="!loading && demandes.length > 0">
+    <div class="card-body p-4">
+      <table class="table table-hover align-middle">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Date début</th>
+          <th>Date fin</th>
+          <th>Date soumission</th>
+          <th>Date traitement</th>
+          <th>Statut</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let demande of demandes">
+          <td>{{ demande.typeConge }}</td>
+          <td>{{ demande.dateDebut | date:'dd/MM/yyyy' }}</td>
+          <td>{{ demande.dateFin | date:'dd/MM/yyyy' }}</td>
+          <td>{{ demande.dateSoumission | date:'dd/MM/yyyy' }}</td>
+          <td>{{ demande.dateTraitement ? (demande.dateTraitement | date:'dd/MM/yyyy') : 'En attente' }}</td>
+          <td>
+  <span
+    class="statut-badge"
+    [ngClass]="{
+      'badge-accept': demande.statut === 'Acceptée',
+      'badge-refuse': demande.statut === 'Refusée',
+      'badge-attente': demande.statut === 'En attente'
+    }"
+  >
+    {{ demande.statut }}
+  </span>
+          </td>
 
-  <div *ngIf="!loading && demandes.length === 0 && !errorMessage" class="alert alert-warning">
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && demandes.length === 0 && !errorMessage" class="alert alert-warning mt-3">
     Aucune demande pour le moment.
   </div>
 </div>

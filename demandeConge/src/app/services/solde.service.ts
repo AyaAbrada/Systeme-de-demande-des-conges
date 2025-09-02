@@ -17,12 +17,10 @@ export class SoldeCongeService {
 
   constructor(private http: HttpClient) {}
 
-  // Récupérer les soldes par employé
   getSoldeParEmploye(employeId: number): Observable<SoldeConge[]> {
     return this.http.get<SoldeConge[]>(`${this.apiUrl}/${employeId}`);
   }
 
-  // Initialiser les soldes pour tous les employés
   initialiserTousLesSoldes(): Observable<string> {
     // @ts-ignore
     return this.http.post(`${this.apiUrl}/init`, {});

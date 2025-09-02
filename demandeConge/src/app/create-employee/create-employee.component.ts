@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';   // ✅ Import FormsModule
-import { NgIf } from '@angular/common';         // ✅ Import NgIf for *ngIf
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-create-employee',
   standalone: true,
-  imports: [FormsModule, NgIf],   // ✅ Add FormsModule + NgIf here
-  templateUrl: './create-employee.component.html'
+  imports: [FormsModule, NgIf],
+  templateUrl: './create-employee.component.html',
+  styleUrl: './create-employee.component.css'
+
 })
 export class CreateEmployeeComponent {
   name = '';

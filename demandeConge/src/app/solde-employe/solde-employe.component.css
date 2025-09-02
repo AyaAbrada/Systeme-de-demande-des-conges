@@ -1,0 +1,156 @@
+body {
+  background: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.text-modern, h2 {
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #d8aaff, #c480ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.text-modern:hover, h2:hover {
+  background: linear-gradient(90deg, #c480ff, #a64dff);
+  transform: translateX(5px);
+}
+
+.employee-card, .card {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2rem;
+}
+
+.employee-card:hover, .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.btn-success, .btn-primary {
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background: #47a44b !important;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+  background: #5a2cd1 !important;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btn-success:active, .btn-primary:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group .form-control {
+  border-radius: 10px 0 0 10px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  outline: none;
+  flex: 1;
+}
+
+.input-group .btn {
+  border-radius: 0 10px 10px 0;
+  padding: 0.5rem 1.5rem;
+  border: none;
+}
+
+.table-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.employee-card table {
+  display: block;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-card table thead {
+  display: none;
+}
+
+.employee-card table tbody tr {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.employee-card table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.employee-card table tbody td {
+  flex: 1;
+  text-align: center;
+}
+
+span.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+span.bg-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.alert {
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  h2, .text-modern {
+    font-size: 1.5rem;
+  }
+
+  .input-group .form-control, .input-group .btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .btn-success, .btn-primary {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .table-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .employee-card table tbody tr {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

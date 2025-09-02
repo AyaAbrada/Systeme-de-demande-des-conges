@@ -12,6 +12,8 @@ import {DemandeConge} from '../model/demande-conge.model';
 })
 export class DemandesComponent implements OnInit {
   demandes: DemandeConge[] = [];
+  loading: boolean = false;
+  error: string = '';
 
   constructor(private demandeService: DemandeCongeServiceService) {}
 
@@ -20,8 +22,17 @@ export class DemandesComponent implements OnInit {
   }
 
   chargerDemandes(): void {
-    this.demandeService.getAllDemandes().subscribe((data: DemandeConge[]) => {
-      this.demandes = data;
+    this.loading = true;
+    this.error = '';
+    this.demandeService.getAllDemandes().subscribe({
+      next: (data: DemandeConge[]) => {
+        this.demandes = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erreur lors du chargement des demandes';
+        this.loading = false;
+      }
     });
   }
 

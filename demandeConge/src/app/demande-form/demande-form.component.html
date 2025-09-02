@@ -1,5 +1,5 @@
-<div class="container">
-  <h2>Demander un congé</h2>
+<div class="container form-card my-5">
+  <h2 class="fw-bold text-modern">Demander un congé</h2>
 
   <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -21,7 +21,7 @@
       <input id="dateFin" type="date" formControlName="dateFin" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="demandeForm.invalid">
+    <button type="submit" class="btn btn-gradient" [disabled]="demandeForm.invalid">
       Envoyer
     </button>
   </form>

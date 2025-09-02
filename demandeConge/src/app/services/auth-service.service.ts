@@ -22,7 +22,6 @@ export class AuthServiceService {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  // Corrected: registerEmployee now calls /register with Manager token
   registerEmployee(employee: {
     password: string;
     role: string;
