@@ -26,28 +26,24 @@
     </thead>
     <tbody>
     <tr *ngFor="let demande of demandes; let i = index">
-      <td class="text-center">{{ i + 1 }}</td>
-      <td class="text-center">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox">
-          </label>
-        </div>
+      <td data-label="Id" class="text-center">{{ i + 1 }}</td>
+      <td data-label="Action" class="text-center">
+        <!-- tu pourras ajouter des icônes ou boutons ici -->
       </td>
-      <td>{{ demande.employeNomComplet }}</td>
-      <td>{{ demande.managerNomComplet }}</td>
-      <td>{{ demande.typeConge }}</td>
-      <td>
+      <td data-label="Employé">{{ demande.employeNomComplet }}</td>
+      <td data-label="Manager">{{ demande.managerNomComplet }}</td>
+      <td data-label="Type">{{ demande.typeConge }}</td>
+      <td data-label="Statut">
           <span [class.bg-warning]="demande.statut === 'En_Attante'"
                 [class.bg-success]="demande.statut === 'ACCEPTER'"
                 [class.bg-danger]="demande.statut === 'REFUSER'">
             {{ demande.statut }}
           </span>
       </td>
-      <td class="text-right">{{ demande.dateDebut }}</td>
-      <td class="text-right">{{ demande.dateFin }}</td>
-      <td class="text-right">{{ demande.dateSoumission }}</td>
-      <td class="text-right">{{ demande.dateTraitement || '-' }}</td>
+      <td data-label="Début" class="text-right">{{ demande.dateDebut }}</td>
+      <td data-label="Fin" class="text-right">{{ demande.dateFin }}</td>
+      <td data-label="Soumission" class="text-right">{{ demande.dateSoumission }}</td>
+      <td data-label="Traitement" class="text-right">{{ demande.dateTraitement || '-' }}</td>
     </tr>
     </tbody>
   </table>

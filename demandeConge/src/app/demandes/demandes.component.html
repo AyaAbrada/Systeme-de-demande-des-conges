@@ -1,39 +1,41 @@
 <div class="container mt-5">
   <h2 class="mb-4">Liste des demandes de congé</h2>
 
-  <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-    <tr>
-      <th>ID</th>
-      <th>Type de congé</th>
-      <th>Employé</th>
-      <th>Manager</th>
-      <th>Date début</th>
-      <th>Date fin</th>
-      <th>Date de soumission</th>
-      <th>Statut</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let demande of demandes">
-      <td>{{ demande.id }}</td>
-      <td>{{ demande.typeConge }}</td>
-      <td>{{ demande.employeNomComplet || '—' }}</td>
-      <td>{{ demande.managerNomComplet || '—' }}</td>
-      <td>{{ demande.dateDebut | date: 'yyyy-MM-dd' }}</td>
-      <td>{{ demande.dateFin | date: 'yyyy-MM-dd' }}</td>
-      <td>{{ demande.dateSoumission | date: 'yyyy-MM-dd' }}</td>
-      <td>
-        <span class="badge bg-warning text-dark" *ngIf="demande.statut === 'En_Attante'">En attente</span>
-        <span class="badge bg-success" *ngIf="demande.statut === 'ACCEPTER'">Acceptée</span>
-        <span class="badge bg-danger" *ngIf="demande.statut === 'REFUSER'">Refusée</span>
-      </td>
-      <td>
-        <button class="btn btn-success btn-sm me-2" (click)="accepter(demande.id)">Accepter</button>
-        <button class="btn btn-danger btn-sm" (click)="refuser(demande.id)">Refuser</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Type de congé</th>
+        <th>Employé</th>
+        <th>Manager</th>
+        <th>Date début</th>
+        <th>Date fin</th>
+        <th>Date de soumission</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let demande of demandes">
+        <td data-label="ID">{{ demande.id }}</td>
+        <td data-label="Type de congé">{{ demande.typeConge }}</td>
+        <td data-label="Employé">{{ demande.employeNomComplet || '—' }}</td>
+        <td data-label="Manager">{{ demande.managerNomComplet || '—' }}</td>
+        <td data-label="Date début">{{ demande.dateDebut | date: 'yyyy-MM-dd' }}</td>
+        <td data-label="Date fin">{{ demande.dateFin | date: 'yyyy-MM-dd' }}</td>
+        <td data-label="Soumission">{{ demande.dateSoumission | date: 'yyyy-MM-dd' }}</td>
+        <td data-label="Statut">
+          <span class="badge bg-warning text-dark" *ngIf="demande.statut === 'En_Attante'">En attente</span>
+          <span class="badge bg-success" *ngIf="demande.statut === 'ACCEPTER'">Acceptée</span>
+          <span class="badge bg-danger" *ngIf="demande.statut === 'REFUSER'">Refusée</span>
+        </td>
+        <td data-label="Actions">
+          <button class="btn btn-success btn-sm me-2" (click)="accepter(demande.id)">Accepter</button>
+          <button class="btn btn-danger btn-sm" (click)="refuser(demande.id)">Refuser</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

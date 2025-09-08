@@ -1,3 +1,8 @@
+body {
+  background: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 h2 {
   font-weight: 700;
   color: #2c3e50;
@@ -9,15 +14,9 @@ h2 {
   transition: background 0.3s ease, transform 0.2s ease;
   display: inline-block;
 }
-
-h2 :hover {
+h2:hover {
   background: linear-gradient(90deg, #c480ff, #a64dff);
   transform: translateX(3px);
-}
-
-body {
-  background: #f4f6f9;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .table-responsive {
@@ -29,153 +28,28 @@ body {
 }
 
 .table {
-  border: none;
-  h2 {
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 30px;
-    background: linear-gradient(90deg, #d8aaff, #c480ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: background 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-    font-size: 2rem;
-  }
-
-  h2:hover {
-    background: linear-gradient(90deg, #c480ff, #a64dff);
-    transform: translateX(3px);
-  }
-
-  body {
-    background: #f4f6f9;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  .table-responsive {
-    margin-top: 20px;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-    background: #fff;
-  }
-
-  .table {
-    border: none;
-    width: 100%;
-  }
-
-  .table thead {
-    background: linear-gradient(90deg, #d8aaff, #c480ff);
-    color: #fff;
-  }
-
-  .table thead th {
-    text-align: center;
-    font-weight: 600;
-    border: none;
-    padding: 12px 8px;
-  }
-
-  .table tbody tr {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  }
-
-  .table tbody tr:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    background-color: #f9f0ff;
-  }
-
-  .table tbody td {
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.95rem;
-    color: #3c4858;
-    padding: 12px 10px;
-  }
-
-  span.bg-warning {
-    background: #fff3cd !important;
-    color: #856404 !important;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 12px;
-  }
-
-  span.bg-success {
-    background: #d4edda !important;
-    color: #155724 !important;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 12px;
-  }
-
-  span.bg-danger {
-    background: #f8d7da !important;
-    color: #721c24 !important;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 12px;
-  }
-
-  .btn-success, .btn-danger {
-    border-radius: 30px;
-    padding: 6px 18px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-
-  .btn-success:hover {
-    background: #47a44b !important;
-    transform: scale(1.05);
-  }
-
-  .btn-danger:hover {
-    background: #f33527 !important;
-    transform: scale(1.05);
-  }
-
-  .form-check-input:checked + .form-check-sign .check {
-    background: #9c27b0;
-  }
-
-  @media (max-width: 768px) {
-    .table thead th, .table tbody td {
-      padding: 8px 6px;
-      font-size: 0.85rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-    }
-  }
-
   width: 100%;
+  border: none;
 }
 
 .table thead {
   background: linear-gradient(90deg, #d8aaff, #c480ff);
   color: #fff;
 }
-
 .table thead th {
   text-align: center;
   font-weight: 600;
   border: none;
   padding: 12px 8px;
 }
-
 .table tbody tr {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
-
 .table tbody tr:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   background-color: #f9f0ff;
 }
-
 .table tbody td {
   text-align: center;
   vertical-align: middle;
@@ -191,7 +65,6 @@ span.bg-warning {
   padding: 5px 10px;
   border-radius: 12px;
 }
-
 span.bg-success {
   background: #d4edda !important;
   color: #155724 !important;
@@ -199,7 +72,6 @@ span.bg-success {
   padding: 5px 10px;
   border-radius: 12px;
 }
-
 span.bg-danger {
   background: #f8d7da !important;
   color: #721c24 !important;
@@ -208,33 +80,41 @@ span.bg-danger {
   border-radius: 12px;
 }
 
-.btn-success, .btn-danger {
-  border-radius: 30px;
-  padding: 6px 18px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-success:hover {
-  background: #47a44b !important;
-  transform: scale(1.05);
-}
-
-.btn-danger:hover {
-  background: #f33527 !important;
-  transform: scale(1.05);
-}
-
-.form-check-input:checked + .form-check-sign .check {
-  background: #9c27b0;
-}
-
 @media (max-width: 768px) {
-  .table thead th, .table tbody td {
-    padding: 8px 6px;
-    font-size: 0.85rem;
+  .table thead {
+    display: none;
   }
+
+  .table, .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 10px;
+  }
+
+  .table td {
+    text-align: left;
+    padding: 8px 12px;
+    border: none;
+    font-size: 0.9rem;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #6c757d;
+  }
+
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
