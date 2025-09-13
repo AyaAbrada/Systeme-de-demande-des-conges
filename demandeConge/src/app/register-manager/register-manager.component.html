@@ -1,0 +1,30 @@
+<div class="register-container">
+  <h2>Enregistrer un Manager</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nom</label>
+      <input formControlName="name" type="text" />
+    </div>
+
+    <div>
+      <label>Prénom</label>
+      <input formControlName="prenom" type="text" />
+    </div>
+
+    <div>
+      <label>Nom d'utilisateur</label>
+      <input formControlName="username" type="text" />
+    </div>
+
+    <div>
+      <label>Mot de passe</label>
+      <input formControlName="password" type="password" />
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Enregistrer</button>
+  </form>
+
+  <div class="message" *ngIf="message">{{ message }}</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+</div>
