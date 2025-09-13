@@ -1,4 +1,5 @@
 package com.example.systemedemandecange.Configiration;
+
 import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Repositorie.UserRepositorie;
 import org.springframework.boot.CommandLineRunner;
@@ -20,13 +21,10 @@ public class ManagerData implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-
         String managerUsername = "ayaabrada";
 
         // تحقق من وجود المدير
         if (!userRepository.existsByUsername(managerUsername)) {
-
-            // إنشاء المدير مع كل الحقول الضرورية
             Manager manager = new Manager(
                     "Aya",              // name
                     "Abrada",           // prenom
@@ -34,11 +32,10 @@ public class ManagerData implements CommandLineRunner {
                     passwordEncoder.encode("ayaabrada")  // password مشفر
             );
 
-
             userRepository.save(manager);
-            System.out.println("Admin créé automatiquement");
+            System.out.println("Manager créé automatiquement avec username ayaabrada");
         } else {
-            System.out.println("Admin déjà présent en base.");
+            System.out.println("Manager déjà présent en base.");
         }
     }
 }
