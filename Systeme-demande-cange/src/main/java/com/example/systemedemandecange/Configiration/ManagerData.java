@@ -1,5 +1,4 @@
 package com.example.systemedemandecange.Configiration;
-
 import com.example.systemedemandecange.Entitie.Manager;
 import com.example.systemedemandecange.Repositorie.UserRepositorie;
 import org.springframework.boot.CommandLineRunner;

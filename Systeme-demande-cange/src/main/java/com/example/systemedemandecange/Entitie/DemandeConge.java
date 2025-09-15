@@ -1,5 +1,4 @@
 package com.example.systemedemandecange.Entitie;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
