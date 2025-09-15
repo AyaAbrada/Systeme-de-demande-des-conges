@@ -1,0 +1,47 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: demande_conge
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - mysql_demande_conge:/var/lib/mysql
+
+    ports:
+      - "3307:3306"
+    networks:
+      - spring-net
+
+  springboot-app:
+    build: .
+    container_name: spring_app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demande_conge
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8083
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8083/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "8083:8083"
+    networks:
+      - spring-net
+
+networks:
+  spring-net:
+    driver: bridge
+
+volumes:
+  mysql_demande_conge:

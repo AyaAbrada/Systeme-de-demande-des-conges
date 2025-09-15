@@ -33,7 +33,7 @@ export class LoginComponent {
       },
       error: (err) => {
         console.error('Login error:', err);
-        if (err.status === 401) this.message = 'Identifiants invalides ou token expiré.';
+        if (err.status === 401) this.message = 'Nom d\'utilisateur ou Mot de passe invalides';
         else this.message = 'Erreur serveur, réessayez plus tard.';
       }
     });

@@ -65,6 +65,7 @@ public class JwtUtils {
         return (List<String>) claims.get("roles");
     }
 
+    //T return dynamique data
     private <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);

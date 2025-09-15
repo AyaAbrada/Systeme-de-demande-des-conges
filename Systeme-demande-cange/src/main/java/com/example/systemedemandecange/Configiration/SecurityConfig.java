@@ -1,4 +1,5 @@
 package com.example.systemedemandecange.Configiration;
+
 import com.example.systemedemandecange.Service.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,14 +34,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        // السماح بالولوج لـ login و register للجميع
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll()
-                        // السماح بالولوج حسب الدور
                         .requestMatchers("/api/v1/auth/register-employee").hasRole("MANAGER")
                         .requestMatchers("/api/demandes", "/api/solde").hasAnyRole("EMPLOYE", "MANAGER")
                         .anyRequest().authenticated()
                 )
-                // إضافة فلتر JWT قبل UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
